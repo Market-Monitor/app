@@ -9,11 +9,11 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "@workspace/eslint-config": "workspace:*",
-    "@workspace/typescript-config": "workspace:*",
+    "@mm-app/eslint-config": "workspace:*",
+    "@mm-app/typescript-config": "workspace:*",
     "prettier": "^3.5.3",
-    "turbo": "^2.4.4",
-    "typescript": "5.7.3"
+    "turbo": "^2.5.2",
+    "typescript": "catalog:"
   },
   "packageManager": "pnpm@10.7.0",
   "engines": {
