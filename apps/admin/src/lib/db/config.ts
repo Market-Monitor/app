@@ -12,4 +12,4 @@ export const tdCollections = {
 
 export const MM_DB = "MarketMonitor";
 
-export const getMmDb = (name: string) => `MM_${name}`;
+export const getMmDb = (name: string) => `MM_${name.toUpperCase()}`;

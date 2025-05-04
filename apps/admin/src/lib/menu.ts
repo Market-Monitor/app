@@ -23,7 +23,7 @@ export const sidebarMenu = [
     items: [
       {
         label: "Update Prices",
-        href: "/dashboard/data-management/prices",
+        href: "/dashboard/updates/prices",
         icon: PhilippinePesoIcon,
       },
     ],
@@ -42,8 +42,8 @@ export const sidebarMenu = [
         icon: LeafyGreenIcon,
       },
       {
-        label: "Vegetables Categories",
-        href: "/dashboard/data-management/vegetables-categories",
+        label: "Vegetable Categories",
+        href: "/dashboard/data-management/vegetable-categories",
         icon: VeganIcon,
       },
       {
@@ -51,9 +51,14 @@ export const sidebarMenu = [
         href: "/dashboard/data-management/assets",
         icon: ImagesIcon,
       },
+    ],
+  },
+  {
+    group: "Service",
+    items: [
       {
         label: "Trading Centers",
-        href: "/dashboard/data-management/trading-centers",
+        href: "/dashboard/service/trading-centers",
         icon: StoreIcon,
       },
     ],
