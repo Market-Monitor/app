@@ -5,12 +5,12 @@ import "@mm-app/ui/globals.css";
 import { Metadata } from "next";
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
+  variable: "--font-sans",
   subsets: ["latin"],
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+  variable: "--font-mono",
   subsets: ["latin"],
 });
 
@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased w-screen overflow-x-hidden`}
+        className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased w-screen overflow-x-hidden`}
       >
         <Providers>{children}</Providers>
       </body>
