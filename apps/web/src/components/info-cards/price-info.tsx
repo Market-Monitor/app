@@ -2,7 +2,7 @@ import {
   Alert,
   AlertDescription,
   AlertTitle,
-} from "@mm-app/ui/components/ui/alert";
+} from "@mm-app/ui/components/alert";
 import { InfoIcon } from "lucide-react";
 
 export default function InfoPriceCard() {

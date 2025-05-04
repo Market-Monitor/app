@@ -26,6 +26,7 @@ import { Fragment } from "react";
 export default function HomeLatestPricesData(props: {
   latestPrices: LatestVeggiePrices;
   category: VeggieCategory;
+  tradingCenter: string;
 }) {
   return (
     <Card className="">
@@ -64,7 +65,7 @@ export default function HomeLatestPricesData(props: {
                       <Tooltip>
                         <TooltipTrigger asChild>
                           <Link
-                            href={`/prices/${item.parentId}/${cls.id}`}
+                            href={`/${props.tradingCenter}/prices/${item.parentId}/${cls.id}`}
                             className="space-x-2 hover:underline hover:text-primary"
                             target="_blank"
                             rel="noopener noreferrer"

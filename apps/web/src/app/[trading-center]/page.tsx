@@ -18,7 +18,7 @@ export default async function Page(props: {
   const latestPricesData = await veggiesAPI.getLatestPrices(tradingCenter);
 
   return (
-    <main className="w-5/6 mx-auto">
+    <div>
       <div className="flex flex-col items-center justify-center py-12 w-full space-y-12">
         <div className="text-center space-y-6">
           <h1 className="text-5xl font-black leading-normal lg:leading-loose">
@@ -61,6 +61,7 @@ export default async function Page(props: {
         {latestPricesData.success ? (
           <LatestPricesContainer>
             <HomeLatestPricesData
+              tradingCenter={tradingCenter}
               latestPrices={{
                 data: latestPricesData.data.data.filter(
                   (item) => item.category === VeggieCategory.Solid,
@@ -71,6 +72,7 @@ export default async function Page(props: {
             />
 
             <HomeLatestPricesData
+              tradingCenter={tradingCenter}
               latestPrices={{
                 data: latestPricesData.data.data.filter(
                   (item) => item.category === VeggieCategory.SariSari,
@@ -84,6 +86,6 @@ export default async function Page(props: {
           <pre>Failed to load latest prices</pre>
         )}
       </div>
-    </main>
+    </div>
   );
 }

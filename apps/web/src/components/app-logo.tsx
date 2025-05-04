@@ -1,4 +1,7 @@
+"use client";
+
 import LogoPNG from "@/assets/logo.png";
+import { useAppData } from "@/providers/app-provider";
 import { cn } from "@mm-app/ui/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,9 +11,11 @@ export default function AppLogo(props: {
   imageClassName?: string;
   textClassName?: string;
 }) {
+  const { tradingCenter } = useAppData();
+
   return (
     <div className={cn("flex items-center justify-center", props.className)}>
-      <Link href="/" className="flex items-center space-x-1">
+      <Link href={`/${tradingCenter}`} className="flex items-center space-x-1">
         <Image
           src={LogoPNG}
           className={cn("w-12 h-12", props.imageClassName)}

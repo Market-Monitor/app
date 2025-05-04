@@ -1,4 +1,5 @@
 interface _Doc {
+  _id: string;
   id: string;
   name: string;
 }

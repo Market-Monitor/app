@@ -1,7 +1,8 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { ThemeProvider as NextThemesProvider } from "next-themes"
+import { TooltipProvider } from "@mm-app/ui/components/tooltip";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
+import * as React from "react";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -12,7 +13,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
       disableTransitionOnChange
       enableColorScheme
     >
-      {children}
+      <TooltipProvider skipDelayDuration={0} delayDuration={0}>
+        {children}
+      </TooltipProvider>
     </NextThemesProvider>
-  )
+  );
 }

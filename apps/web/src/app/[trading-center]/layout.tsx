@@ -1,4 +1,6 @@
+import Header from "@/components/header";
 import { veggiesAPI } from "@/lib/veggies-api/client";
+import { AppProvider } from "@/providers/app-provider";
 import { notFound } from "next/navigation";
 import { ReactNode } from "react";
 
@@ -23,5 +25,11 @@ export default async function Layout({
     return notFound();
   }
 
-  return <>{children}</>;
+  return (
+    <AppProvider tradingCenter={tradingCenter}>
+      <Header tradingCenter={tradingCenter} />
+
+      <main className="w-11/12 lg:w-5/6 mx-auto my-12">{children}</main>
+    </AppProvider>
+  );
 }

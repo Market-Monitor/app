@@ -6,12 +6,12 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@mm-app/ui/components/ui/card";
+} from "@mm-app/ui/components/card";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@mm-app/ui/components/ui/tooltip";
+} from "@mm-app/ui/components/tooltip";
 import { InfoIcon } from "lucide-react";
 import Image from "next/image";
 import SelectionClasses from "./selection-classes";

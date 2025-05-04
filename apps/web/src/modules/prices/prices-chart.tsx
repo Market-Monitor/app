@@ -9,12 +9,12 @@ import {
   ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
-} from "@mm-app/ui/components/ui/chart";
+} from "@mm-app/ui/components/chart";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@mm-app/ui/components/ui/tooltip";
+} from "@mm-app/ui/components/tooltip";
 import { useMediaQuery } from "@react-hookz/web";
 import FileSaver from "file-saver";
 import { useCallback } from "react";
@@ -24,11 +24,11 @@ import { useCurrentPng } from "recharts-to-png";
 const chartConfig = {
   high: {
     label: "High",
-    color: "hsl(var(--chart-1))",
+    color: "var(--chart-1)",
   },
   low: {
     label: "Low",
-    color: "hsl(var(--chart-2))",
+    color: "var(--chart-2)",
   },
 } satisfies ChartConfig;
 

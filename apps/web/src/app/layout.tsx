@@ -2,7 +2,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 
 import { Providers } from "@/components/providers";
 import "@mm-app/ui/globals.css";
-import Header from "../components/header";
 
 const fontSans = Geist({
   subsets: ["latin"],
@@ -45,11 +44,7 @@ export default function RootLayout({
       <body
         className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased w-screen overflow-x-hidden`}
       >
-        <Providers>
-          <Header />
-
-          {children}
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

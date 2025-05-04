@@ -1,7 +1,7 @@
 "use client";
 
 import { Veggie } from "@mm-app/internal/api";
-import { Input } from "@mm-app/ui/components/ui/input";
+import { Input } from "@mm-app/ui/components/input";
 import Link from "next/link";
 import { useState } from "react";
 

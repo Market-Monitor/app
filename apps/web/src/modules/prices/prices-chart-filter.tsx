@@ -4,7 +4,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@mm-app/ui/components/ui/select";
+} from "@mm-app/ui/components/select";
 
 export const chartDatesFilter = [
   {

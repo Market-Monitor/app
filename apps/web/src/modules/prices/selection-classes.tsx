@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@mm-app/ui/components/ui/button";
+import { Button } from "@mm-app/ui/components/button";
 import {
   Command,
   CommandEmpty,
@@ -8,12 +8,12 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@mm-app/ui/components/ui/command";
+} from "@mm-app/ui/components/command";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@mm-app/ui/components/ui/popover";
+} from "@mm-app/ui/components/popover";
 import { cn } from "@mm-app/ui/lib/utils";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { useRouter } from "next/navigation";

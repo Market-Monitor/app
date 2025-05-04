@@ -6,8 +6,8 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@mm-app/ui/components/ui/card";
-import { ScrollArea } from "@mm-app/ui/components/ui/scroll-area";
+} from "@mm-app/ui/components/card";
+import { ScrollArea } from "@mm-app/ui/components/scroll-area";
 import {
   Table,
   TableBody,
@@ -16,7 +16,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@mm-app/ui/components/ui/table";
+} from "@mm-app/ui/components/table";
 import { format } from "date-fns";
 
 export default function PricesListHistory(props: {

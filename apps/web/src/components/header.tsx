@@ -8,7 +8,7 @@ import Link from "next/link";
 import AppLogo from "./app-logo";
 import HeaderMobileMenu from "./header-mobile-menu";
 
-export default async function Header() {
+export default async function Header(props: { tradingCenter: string }) {
   const tradingCenters = await veggiesAPI.getTradingCenters();
   const veggieClasses = await veggiesAPI.getVeggieClasses("baptc");
 
@@ -23,7 +23,7 @@ export default async function Header() {
               <li>
                 <Link
                   className="text-sm font-medium text-muted-foreground hover:text-primary duration-300 text-nowrap"
-                  href="/vegetables-list"
+                  href={`/${props.tradingCenter}/vegetables/list`}
                 >
                   Vegetables List
                 </Link>

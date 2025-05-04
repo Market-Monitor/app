@@ -6,7 +6,7 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from "@mm-app/ui/components/ui/card";
+} from "@mm-app/ui/components/card";
 import { useCallback, useState } from "react";
 import { PricesChart } from "./prices-chart";
 import PricesChartFilter, { ChartDatesFilter } from "./prices-chart-filter";

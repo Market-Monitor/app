@@ -4,6 +4,7 @@ import * as React from "react";
 import * as RechartsPrimitive from "recharts";
 
 import { cn } from "@mm-app/ui/lib/utils";
+import { JSX } from "react";
 
 // Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: "", dark: ".dark" } as const;
@@ -109,6 +110,7 @@ function ChartTooltipContent({
   payload,
   className,
   indicator = "dot",
+  indicatorPreValueLabel,
   hideLabel = false,
   hideIndicator = false,
   label,
@@ -125,6 +127,7 @@ function ChartTooltipContent({
     indicator?: "line" | "dot" | "dashed";
     nameKey?: string;
     labelKey?: string;
+    indicatorPreValueLabel?: JSX.Element;
   }) {
   const { config } = useChart();
 
@@ -234,6 +237,7 @@ function ChartTooltipContent({
                     </div>
                     {item.value && (
                       <span className="text-foreground font-mono font-medium tabular-nums">
+                        {indicatorPreValueLabel}
                         {item.value.toLocaleString()}
                       </span>
                     )}
