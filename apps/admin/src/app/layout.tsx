@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 
 import { Providers } from "@/components/providers";
 import "@mm-app/ui/globals.css";
+import { Metadata } from "next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,13 +14,18 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const metadata: Metadata = {
+  title: "Admin Dashboard | Market Monitor",
+  description: "",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased w-screen overflow-x-hidden`}
       >
