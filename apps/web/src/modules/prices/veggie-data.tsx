@@ -33,7 +33,7 @@ export default function PricesVeggieData({
   )[0]!;
 
   return (
-    <CardHeader className="grid md:grid-cols-2 gap-6 md:gap-12 p-3">
+    <CardHeader className="grid md:grid-cols-2 gap-6 p-3">
       <Card>
         <CardHeader>
           <p className="text-sm text-muted-foreground">
@@ -83,7 +83,7 @@ export default function PricesVeggieData({
       </Card>
 
       <div className="space-y-1">
-        <div className="h-72 w-full rounded-lg border relative">
+        <div className="h-80 w-full rounded-lg border relative">
           {veggieData.imageUrl ? (
             <Image
               src={veggieData.imageUrl}

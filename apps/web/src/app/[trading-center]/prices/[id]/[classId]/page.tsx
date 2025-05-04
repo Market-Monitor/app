@@ -1,7 +1,7 @@
 import InfoPriceCard from "@/components/info-cards/price-info";
 import { veggiesAPI } from "@/lib/veggies-api/client";
-import PricesChartContainer from "@/modules/prices/prices-chart-container";
-import PricesListHistory from "@/modules/prices/prices-list-history";
+import PricesChartContainer from "@/modules/prices/chart-container";
+import PricesListHistory from "@/modules/prices/list-history";
 import PricesVeggieData from "@/modules/prices/veggie-data";
 import { Card } from "@mm-app/ui/components/card";
 import { Metadata } from "next";

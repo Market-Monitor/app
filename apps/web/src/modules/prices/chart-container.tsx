@@ -8,8 +8,8 @@ import {
   CardTitle,
 } from "@mm-app/ui/components/card";
 import { useCallback, useState } from "react";
-import { PricesChart } from "./prices-chart";
-import PricesChartFilter, { ChartDatesFilter } from "./prices-chart-filter";
+import { PricesChart } from "./chart";
+import PricesChartFilter, { ChartDatesFilter } from "./chart-filter";
 
 export default function PricesChartContainer(props: {
   pricesData: VeggiePrice[];
