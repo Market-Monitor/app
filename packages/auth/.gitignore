@@ -1,0 +1,9 @@
+.env
+.env.local
+
+# better-auth migrations 
+better-auth_migrations
+migrations
+
+# internal scripts
+scripts
