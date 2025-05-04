@@ -1,6 +1,7 @@
 "use client";
 
 import { veggiesAPI } from "@/lib/veggies-api/client";
+import { useAppData } from "@/providers/app-provider";
 import { Button } from "@mm-app/ui/components/button";
 import {
   Command,
@@ -24,6 +25,8 @@ export default function SearchBarResults(props: {
   data: Awaited<ReturnType<typeof veggiesAPI.getVeggieClasses>>;
   onSelectAction?: () => void;
 }) {
+  const { tradingCenter } = useAppData();
+
   const router = useRouter();
 
   const [open, setOpen] = useState(false);
@@ -56,7 +59,9 @@ export default function SearchBarResults(props: {
                       key={item.id}
                       value={item.name}
                       onSelect={() => {
-                        router.push(`/prices/${item.parentId}/${item.id}`);
+                        router.push(
+                          `/${tradingCenter}/prices/${item.parentId}/${item.id}`,
+                        );
                         setOpen(false);
 
                         if (props.onSelectAction) {
@@ -67,7 +72,7 @@ export default function SearchBarResults(props: {
                     >
                       <Link
                         onClick={() => setOpen(false)}
-                        href={`/prices/${item.parentId}/${item.id}`}
+                        href={`/${tradingCenter}/prices/${item.parentId}/${item.id}`}
                       >
                         {item.name}
                       </Link>
