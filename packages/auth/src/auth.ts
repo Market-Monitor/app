@@ -18,7 +18,7 @@ export const auth = betterAuth({
     },
   },
   plugins: [admin()],
-  trustedOrigins: [...process.env.TRUSTED_ORIGINS!.split("")],
+  trustedOrigins: [...(process.env.TRUSTED_ORIGINS ?? "").split("")],
 });
 
 export const nextJsHandlers = toNextJsHandler(auth);

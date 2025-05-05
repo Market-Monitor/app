@@ -1,6 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ["@mm-app/ui"],
+  output: "standalone",
+  transpilePackages: ["@mm-app/ui", "@mm-app/auth"],
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "service-hosted-files.tbdh.dev",
+        port: "",
+        pathname: "/**/*",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

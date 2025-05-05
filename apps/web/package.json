@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@mm-app/eslint-config": "workspace:^",
-    "@mm-app/typescript-config": "workspace:*",
+    "@mm-app/typescript-config": "workspace:^",
     "@types/file-saver": "^2.0.7",
     "@types/node": "^20.17.32",
     "@types/react": "^19.1.2",

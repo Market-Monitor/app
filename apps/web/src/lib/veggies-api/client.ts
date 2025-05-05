@@ -35,7 +35,9 @@ const fetcherClient = async <T>(
     }
 > => {
   const url = new URL(
-    tradingCenterId ? `api/${tradingCenterId}/${endpoint}` : `/api/${endpoint}`,
+    tradingCenterId
+      ? `/api/${tradingCenterId}/${endpoint}`
+      : `/api/${endpoint}`,
     VEGGIE_API,
   );
 
