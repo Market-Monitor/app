@@ -1,0 +1,31 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      network: host
+    env_file:
+      - ./apps/web/.env
+    ports:
+      - "127.0.0.1:5000:5000"
+    container_name: web
+    networks:
+      - mm-network
+
+  admin:
+    build:
+      context: .
+      dockerfile: apps/admin/Dockerfile
+      network: host
+    env_file:
+      - ./apps/admin/.env
+    ports:
+      - "127.0.0.1:5555:5555"
+    container_name: admin
+    networks:
+      - mm-network
+
+networks:
+  mm-network:
+    driver: bridge
+    external: true
