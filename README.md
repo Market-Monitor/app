@@ -1,31 +1,14 @@
-# shadcn/ui monorepo template
+![Logo](./docs/mm-logo.jpeg)
 
-This template is for creating a monorepo with shadcn/ui.
+> [!NOTE]
+> Logo is subject for change.
 
-## Usage
+# Benguet Trading Centers - Price Monitoring Web App
 
-```bash
-pnpm dlx shadcn@latest init
-```
+This is a non-official price monoting web application for vegetables in the following Trading Centers in Benguet:
 
-## Adding components
+- **[BAPTC](https://www.facebook.com/baptc.price)**
+- NVAT (Coming Soon~~)
 
-To add components to your app, run the following command at the root of your `web` app:
-
-```bash
-pnpm dlx shadcn@latest add button -c apps/web
-```
-
-This will place the ui components in the `packages/ui/src/components` directory.
-
-## Tailwind
-
-Your `tailwind.config.ts` and `globals.css` are already set up to use the components from the `ui` package.
-
-## Using components
-
-To use the components in your app, import them from the `ui` package.
-
-```tsx
-import { Button } from "@workspace/ui/components/button"
-```
+> [!NOTE]
+> This project is not official / sponsored.
