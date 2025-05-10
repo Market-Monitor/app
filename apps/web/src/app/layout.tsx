@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 
 import { Providers } from "@/components/providers";
+import TrackingScripts from "@/components/tracking-scripts";
 import "@mm-app/ui/globals.css";
 
 const fontSans = Geist({
@@ -46,6 +47,8 @@ export default function RootLayout({
       >
         <Providers>{children}</Providers>
       </body>
+
+      <TrackingScripts />
     </html>
   );
 }
