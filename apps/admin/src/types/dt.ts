@@ -11,3 +11,7 @@ export interface Asset {
   fileSize: number;
   source: string;
 }
+
+export type AssetDoc = Asset & {
+  _id: string;
+};
