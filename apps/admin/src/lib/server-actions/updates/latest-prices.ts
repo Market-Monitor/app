@@ -87,25 +87,51 @@ export const updateLatestPrices = async (
     for (const item of data) {
       for (const data of item.data) {
         for (const x of data.data) {
-          if (
-            isStringEmpty(x.name) ||
-            x.price.length === 0 ||
-            isStringEmpty(x.id) ||
-            isStringEmpty(x.parentId) ||
-            isStringEmpty(data.id) ||
-            isStringEmpty(data.category) ||
-            isStringEmpty(item.date)
-          ) {
-            console.error(
-              "[Add Price Data] Data is not valid ::>",
-              x,
-              data,
-              item,
-            );
-            return {
-              success: false,
-              message: "Data is not valid",
-            };
+          // Skip if price is empty
+          if (x.price.length === 0) {
+            console.log("[Add Price Data] Skipping empty price ::>", x);
+            continue;
+          }
+
+          if (tradingCenter === "baptc") {
+            if (
+              isStringEmpty(x.name) ||
+              isStringEmpty(x.id) ||
+              isStringEmpty(x.parentId) ||
+              isStringEmpty(data.id) ||
+              isStringEmpty(data.category) ||
+              isStringEmpty(item.date)
+            ) {
+              console.error(
+                "[Add Price Data] Data is not valid ::>",
+                x,
+                data,
+                item,
+              );
+              return {
+                success: false,
+                message: "Data is not valid ::>" + item.date,
+              };
+            }
+          } else {
+            if (
+              isStringEmpty(x.name) ||
+              isStringEmpty(x.id) ||
+              isStringEmpty(x.parentId) ||
+              isStringEmpty(data.id) ||
+              isStringEmpty(item.date)
+            ) {
+              console.error(
+                "[Add Price Data] Data is not valid ::>",
+                x,
+                data,
+                item,
+              );
+              return {
+                success: false,
+                message: "Data is not valid ::>" + item.date,
+              };
+            }
           }
 
           const newItem = {
@@ -159,13 +185,6 @@ export const updateLatestPrices = async (
     const latestConfig = await configsCollection.findOne({
       configId: 0,
     });
-    if (!latestConfig) {
-      console.error("Latest config not found");
-      return {
-        success: false,
-        message: "Latest config not found",
-      };
-    }
 
     // TODO: remove console.logs
     console.log("[Add Price Data] ::>", dataToInsert.length, "items to insert");
@@ -181,10 +200,20 @@ export const updateLatestPrices = async (
     }
 
     // Update latest config
-    if ((latestDataDate ?? "") > (latestConfig.latestDataDate as string)) {
+    if (
+      (latestDataDate ?? "") > ((latestConfig?.latestDataDate as string) ?? "")
+    ) {
       const updateCol = await configsCollection.updateOne(
         { configId: 0 },
-        { $set: { latestDataDate: latestDataDate } },
+        {
+          $set: { latestDataDate: latestDataDate },
+          $setOnInsert: {
+            configId: 0,
+          },
+        },
+        {
+          upsert: true,
+        },
       );
       if (!updateCol.acknowledged) {
         console.error(
