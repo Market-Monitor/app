@@ -25,14 +25,18 @@ import { Fragment } from "react";
 
 export default function HomeLatestPricesData(props: {
   latestPrices: LatestVeggiePrices;
-  category: VeggieCategory;
+  category?: VeggieCategory;
   tradingCenter: string;
 }) {
   return (
     <Card className="">
-      <CardHeader>
-        <CardTitle>{props.category}</CardTitle>
-      </CardHeader>
+      {props.category ? (
+        <CardHeader>
+          <CardTitle>{props.category}</CardTitle>
+        </CardHeader>
+      ) : (
+        <></>
+      )}
 
       <CardContent>
         <Table className="w-full table-fixed">

@@ -1,5 +1,6 @@
 "use client";
 
+import { useAppData } from "@/providers/app-provider";
 import { Button } from "@mm-app/ui/components/button";
 import {
   Command,
@@ -29,6 +30,8 @@ export default function SelectionClasses(props: {
   currentSelection: string;
 }) {
   const router = useRouter();
+
+  const { tradingCenter } = useAppData();
 
   const [open, setOpen] = useState(false);
   const [value] = useState(props.currentSelection);
@@ -71,9 +74,12 @@ export default function SelectionClasses(props: {
                     key={item.id}
                     value={item.value}
                     onSelect={() => {
-                      router.push(`/prices/${props.id}/${item.id}`, {
-                        scroll: false,
-                      });
+                      router.push(
+                        `/${tradingCenter}/prices/${props.id}/${item.id}`,
+                        {
+                          scroll: false,
+                        },
+                      );
                     }}
                   >
                     {item.value === value ? (

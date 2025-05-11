@@ -41,8 +41,8 @@ export interface LatestVeggiePrices {
   data: {
     parentId: string;
     parentName: string;
-    category: VeggieCategory;
-    tradingCenterId: string;
+    category?: VeggieCategory;
+    tradingCenter: string;
     classes: LatestVeggieClassPrices[];
   }[];
   latestDataDate: string;

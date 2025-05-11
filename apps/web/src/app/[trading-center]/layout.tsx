@@ -21,12 +21,13 @@ export default async function Layout({
   }
 
   // Check if the trading center exists
-  if (!tradingCenters.data.some((item) => item.slug === tradingCenter)) {
+  const td = tradingCenters.data.find((item) => item.slug === tradingCenter);
+  if (!td) {
     return notFound();
   }
 
   return (
-    <AppProvider tradingCenter={tradingCenter}>
+    <AppProvider tradingCenter={tradingCenter} tradingCenterData={td}>
       <Header tradingCenter={tradingCenter} />
 
       <main className="w-11/12 lg:w-5/6 mx-auto my-12">{children}</main>

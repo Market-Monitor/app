@@ -1,11 +1,14 @@
 "use client";
 
+import { useAppData } from "@/providers/app-provider";
 import { Button } from "@mm-app/ui/components/button";
 import { cn } from "@mm-app/ui/lib/utils";
 import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 import { ReactNode, useState } from "react";
 
 export default function LatestPricesContainer(props: { children: ReactNode }) {
+  const { tradingCenter } = useAppData();
+
   const [isExpanded, setIsExpanded] = useState(true);
 
   const toggleExpand = () => {
@@ -20,6 +23,7 @@ export default function LatestPricesContainer(props: { children: ReactNode }) {
             "grid grid-cols-1 lg:grid-cols-2 gap-8 overflow-hidden transition-all duration-500 ease-in-out",
             {
               "max-h-[500px]": !isExpanded,
+              "lg:grid-cols-1 w-5/6 mx-auto": tradingCenter !== "baptc",
             },
           )}
         >

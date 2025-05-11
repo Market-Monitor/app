@@ -1,5 +1,6 @@
 "use client";
 
+import { useAppData } from "@/providers/app-provider";
 import { TradingCenter } from "@mm-app/internal/api";
 import {
   Select,
@@ -9,16 +10,26 @@ import {
   SelectValue,
 } from "@mm-app/ui/components/select";
 import { cn } from "@mm-app/ui/lib/utils";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function TradingCenterSelections(props: {
   className?: string;
   tradingCenters: TradingCenter[];
 }) {
-  const [value, setValue] = useState("baptc");
+  const router = useRouter();
+
+  const { tradingCenter } = useAppData();
+
+  const [value] = useState(tradingCenter);
 
   return (
-    <Select value={value} onValueChange={setValue}>
+    <Select
+      value={value}
+      onValueChange={(value) => {
+        router.push(`/${value}`);
+      }}
+    >
       <SelectTrigger className={cn("w-[180px]", props.className)}>
         <SelectValue placeholder="Trading Center" />
       </SelectTrigger>

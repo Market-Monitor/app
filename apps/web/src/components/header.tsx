@@ -10,7 +10,7 @@ import HeaderMobileMenu from "./header-mobile-menu";
 
 export default async function Header(props: { tradingCenter: string }) {
   const tradingCenters = await veggiesAPI.getTradingCenters();
-  const veggieClasses = await veggiesAPI.getVeggieClasses("baptc");
+  const veggieClasses = await veggiesAPI.getVeggieClasses(props.tradingCenter);
 
   return (
     <header className="py-2 w-11/12 lg:w-5/6 mx-auto flex items-center justify-between">
