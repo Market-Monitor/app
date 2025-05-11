@@ -1,3 +1,7 @@
+import { EmptyCard } from "@/components/empty-card";
+import { getAssets } from "@/lib/db-queries/assets";
+import DataAssetsContainer from "@/modules/dt/assets/container";
+import AssetsUploaderDialog from "@/modules/dt/assets/uploader-dialog";
 import {
   Card,
   CardContent,
@@ -6,7 +10,20 @@ import {
   CardTitle,
 } from "@mm-app/ui/components/card";
 
-export default function AdminAssetsPage() {
+export default async function AdminAssetsPage() {
+  const res = await getAssets();
+
+  if (!res.success) {
+    return (
+      <div>
+        <EmptyCard
+          title="Failed to fetch assets"
+          description="An error occurred while fetching assets."
+        />
+      </div>
+    );
+  }
+
   return (
     <div>
       <Card>
@@ -19,10 +36,14 @@ export default function AdminAssetsPage() {
             </CardDescription>
           </div>
 
-          <div>{/* <AssetsUploaderDialog /> */}</div>
+          <div>
+            <AssetsUploaderDialog />
+          </div>
         </CardHeader>
 
-        <CardContent>{/* <AssetsList data={res.data ?? []} /> */}</CardContent>
+        <CardContent>
+          <DataAssetsContainer data={res.data ?? []} />
+        </CardContent>
       </Card>
     </div>
   );

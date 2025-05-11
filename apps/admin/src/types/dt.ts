@@ -4,3 +4,10 @@ export interface TradingCenter {
   addedDate?: string;
   slug: string;
 }
+
+export interface Asset {
+  image: string;
+  uploadedDate: string;
+  fileSize: number;
+  source: string;
+}

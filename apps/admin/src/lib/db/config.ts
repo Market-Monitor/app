@@ -1,9 +1,9 @@
 export const mmCollections = {
+  assets: "Assets",
   tradingCenters: "TradingCenters",
 };
 
 export const tdCollections = {
-  assets: "Assets",
   configurations: "Configurations",
   historyPrices: "HistoryPrices",
   veggies: "Veggies",
