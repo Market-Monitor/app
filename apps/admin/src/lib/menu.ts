@@ -46,16 +46,16 @@ export const sidebarMenu = [
         href: "/dashboard/data-management/vegetable-categories",
         icon: VeganIcon,
       },
-      {
-        label: "Assets",
-        href: "/dashboard/data-management/assets",
-        icon: ImagesIcon,
-      },
     ],
   },
   {
     group: "Service",
     items: [
+      {
+        label: "Assets",
+        href: "/dashboard/service/assets",
+        icon: ImagesIcon,
+      },
       {
         label: "Trading Centers",
         href: "/dashboard/service/trading-centers",
