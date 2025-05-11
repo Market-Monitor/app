@@ -1,18 +1,15 @@
 "use client";
 
-import { Asset } from "@/types/dt";
-import { WithId } from "mongodb";
+import { AssetDoc } from "@/types/dt";
 import Image from "next/image";
 import { useState } from "react";
 import AssetPreview from "./asset-preview";
 
-export default function DataAssetsContainer(props: { data: WithId<Asset>[] }) {
+export default function DataAssetsContainer(props: { data: AssetDoc[] }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedAsset, setSelectedAsset] = useState<WithId<Asset> | null>(
-    null,
-  );
+  const [selectedAsset, setSelectedAsset] = useState<AssetDoc | null>(null);
 
-  const handlePreview = (asset: WithId<Asset>) => {
+  const handlePreview = (asset: AssetDoc) => {
     setSelectedAsset(asset);
     setIsOpen(true);
   };

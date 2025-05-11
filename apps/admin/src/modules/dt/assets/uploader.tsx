@@ -2,7 +2,7 @@
 
 import { useUpload } from "@/lib/s3/use-upload";
 import { saveAssetUploadToDB } from "@/lib/server-actions/asset";
-import { Asset } from "@/types/dt";
+import { AssetDoc } from "@/types/dt";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@mm-app/ui/components/button";
 import {
@@ -38,7 +38,7 @@ type UploadSchema = z.infer<typeof uploadSchema>;
 
 const AssetsUploader = (props: { className?: string }) => {
   const [, startTransition] = useTransition();
-  const [failedSaves, setFailedSaves] = useLocalStorage<Partial<Asset>[]>(
+  const [failedSaves, setFailedSaves] = useLocalStorage<Partial<AssetDoc>[]>(
     "save-failures",
     [],
   );
@@ -59,7 +59,7 @@ const AssetsUploader = (props: { className?: string }) => {
       // We save each file separately, incase a person is uploading multiple files
       // and one of them fails, we can still save the successful ones.
       // TODO: incase of save fail, we kind of need a failover mechanism to retry saving the file
-      const record: Partial<Asset> = {
+      const record: Partial<AssetDoc> = {
         image: file.url,
         uploadedDate: new Date().toISOString(),
         fileSize: file.file.size,

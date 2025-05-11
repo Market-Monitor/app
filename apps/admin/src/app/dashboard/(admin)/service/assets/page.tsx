@@ -42,7 +42,16 @@ export default async function AdminAssetsPage() {
         </CardHeader>
 
         <CardContent>
-          <DataAssetsContainer data={res.data ?? []} />
+          <DataAssetsContainer
+            data={
+              res.data
+                ? res.data.map((item) => ({
+                    ...item,
+                    _id: item._id.toString(),
+                  }))
+                : []
+            }
+          />
         </CardContent>
       </Card>
     </div>

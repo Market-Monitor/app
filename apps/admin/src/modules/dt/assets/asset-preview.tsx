@@ -1,4 +1,4 @@
-import { Asset } from "@/types/dt";
+import { AssetDoc } from "@/types/dt";
 import {
   Dialog,
   DialogContent,
@@ -6,14 +6,13 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@mm-app/ui/components/dialog";
-import { WithId } from "mongodb";
 import Image from "next/image";
 import AssetDelete from "./asset-delete";
 
 export default function AssetPreview(props: {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
-  asset: WithId<Asset> | null;
+  asset: AssetDoc | null;
 }) {
   return (
     <Dialog open={props.isOpen} onOpenChange={props.onOpenChange}>
