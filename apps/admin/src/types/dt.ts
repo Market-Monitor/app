@@ -15,3 +15,7 @@ export interface Asset {
 export type AssetDoc = Asset & {
   _id: string;
 };
+
+export type TradingCenterDoc = TradingCenter & {
+  _id: string;
+};

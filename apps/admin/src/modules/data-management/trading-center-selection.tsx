@@ -21,7 +21,7 @@ export default function TradingCenterSelection() {
         </SelectTrigger>
         <SelectContent>
           {tradingCenters.map((item) => (
-            <SelectItem key={item._id.toString()} value={item.slug}>
+            <SelectItem key={item._id} value={item.slug}>
               {item.name}
             </SelectItem>
           ))}

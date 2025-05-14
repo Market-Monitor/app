@@ -1,6 +1,6 @@
 "use client";
 
-import { TradingCenter } from "@/types/dt";
+import { TradingCenterDoc } from "@/types/dt";
 import { WithId } from "mongodb";
 import {
   createContext,
@@ -14,7 +14,7 @@ import {
 type DataManagementContext = {
   tradingCenter: string;
   setTradingCenter: Dispatch<SetStateAction<string>>;
-  tradingCenters: WithId<TradingCenter>[];
+  tradingCenters: WithId<TradingCenterDoc>[];
 };
 
 const dataManagementContext = createContext<DataManagementContext>({
@@ -25,7 +25,7 @@ const dataManagementContext = createContext<DataManagementContext>({
 
 export default function DataManagementProvider(props: {
   children: ReactNode;
-  tradingCenters: WithId<TradingCenter>[];
+  tradingCenters: WithId<TradingCenterDoc>[];
 }) {
   const [tradingCenter, setTradingCenter] = useState<string>(
     props.tradingCenters[0]?.slug ?? "",

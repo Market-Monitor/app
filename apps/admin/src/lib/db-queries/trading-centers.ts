@@ -1,6 +1,6 @@
 import "server-only";
 
-import { TradingCenter } from "@/types/dt";
+import { TradingCenter, TradingCenterDoc } from "@/types/dt";
 import { WithId } from "mongodb";
 import { unstable_cache } from "next/cache";
 import { MM_DB, mmCollections } from "../db/config";
@@ -18,7 +18,10 @@ export const getTradingCenters = unstable_cache(
 
       return {
         success: true,
-        data: tradingCenters,
+        data: tradingCenters.map((item) => ({
+          ...item,
+          _id: item._id.toString(),
+        })) as TradingCenterDoc[],
       };
     } catch (err) {
       console.error("Error fetching trading centers:", err);
