@@ -1,0 +1,98 @@
+"use client";
+
+import { VeggieClass } from "@mm-app/internal/api";
+import { Button } from "@mm-app/ui/components/button";
+import { Checkbox } from "@mm-app/ui/components/checkbox";
+import { ColumnDef } from "@tanstack/react-table";
+import { ArrowUpDownIcon } from "lucide-react";
+
+export const veggiesDTColumns: ColumnDef<VeggieClass>[] = [
+  {
+    id: "select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
+  {
+    accessorKey: "name",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant={"ghost"}
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Vegetable
+          <ArrowUpDownIcon className="ml-2 size-4" />
+        </Button>
+      );
+    },
+  },
+  {
+    accessorKey: "id",
+    header: "ID",
+  },
+  // TODO: Re-think on how to re-implement this
+  // {
+  //   id: "actions",
+  //   enableHiding: false,
+  //   header: "Actions",
+  //   cell: function ActionsCell({ row }) {
+  //     const { setAction } = useVeggieCategoryActions();
+
+  //     return (
+  //       <DropdownMenu>
+  //         <DropdownMenuTrigger asChild>
+  //           <Button variant={"ghost"}>
+  //             <MoreHorizontalIcon />
+  //             <span className="sr-only">Actions</span>
+  //           </Button>
+  //         </DropdownMenuTrigger>
+
+  //         <DropdownMenuContent align="end" className="w-[200px]">
+  //           <DropdownMenuLabel>Actions</DropdownMenuLabel>
+  //           <DropdownMenuItem
+  //             onSelect={() => {
+  //               setAction({
+  //                 type: "edit",
+  //                 isOpen: true,
+  //                 veggie: row.original,
+  //               });
+  //             }}
+  //           >
+  //             <EditIcon />
+  //             Edit
+  //           </DropdownMenuItem>
+  //           <DropdownMenuItem
+  //             onSelect={() => {
+  //               setAction({
+  //                 type: "delete",
+  //                 isOpen: true,
+  //                 veggie: row.original,
+  //               });
+  //             }}
+  //           >
+  //             <TrashIcon />
+  //             Delete
+  //           </DropdownMenuItem>
+  //         </DropdownMenuContent>
+  //       </DropdownMenu>
+  //     );
+  //   },
+  // },
+];
