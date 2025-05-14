@@ -2,7 +2,7 @@
 
 import CodeEditor from "@/components/code-editor";
 import { updateVegetables } from "@/lib/server-actions/updates/vegetables";
-import { TradingCenter } from "@/types/dt";
+import { TradingCenterDoc } from "@/types/dt";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@mm-app/ui/components/button";
 import {
@@ -39,7 +39,7 @@ const formSchema = z.object({
 type FormSchema = z.infer<typeof formSchema>;
 
 export default function PriceUpdatesVegetables(props: {
-  tradingCenters: WithId<TradingCenter>[];
+  tradingCenters: WithId<TradingCenterDoc>[];
 }) {
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
