@@ -21,6 +21,7 @@
     "@uiw/codemirror-themes-all": "^4.23.12",
     "@uiw/react-codemirror": "^4.23.12",
     "better-auth": "^1.2.7",
+    "date-fns": "^4.1.0",
     "lucide-react": "^0.475.0",
     "mongodb": "^6.16.0",
     "nanoid": "^5.1.5",

@@ -1,3 +1,5 @@
+import "server-only";
+
 import { TradingCenter } from "@/types/dt";
 import { Veggie } from "@mm-app/internal/api";
 import { WithId } from "mongodb";

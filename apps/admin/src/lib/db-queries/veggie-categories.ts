@@ -42,10 +42,10 @@ export const getAllVeggieCategories = unstable_cache(
         data: allVeggies,
       };
     } catch (err) {
-      console.error("Error fetching veggies:", err);
+      console.error("Error fetching veggie categories:", err);
       return {
         success: false,
-        error: "Failed to fetch veggies :> " + err,
+        error: "Failed to fetch veggie categories :> " + err,
       };
     }
   },

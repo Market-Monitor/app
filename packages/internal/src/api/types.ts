@@ -12,6 +12,7 @@ export interface VeggiePrice extends _Doc {
   parentId: string;
   parentName: string;
   price: number[];
+  tradingCenter: string;
 }
 
 export enum VeggieCategory {
