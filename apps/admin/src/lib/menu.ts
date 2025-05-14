@@ -9,11 +9,11 @@ import {
 
 export const sidebarMenu = [
   {
-    group: "Menu",
+    group: "App",
     items: [
       {
         label: "Dashboard",
-        href: "/dashboard/",
+        href: "/dashboard",
         icon: LayoutDashboardIcon,
       },
     ],

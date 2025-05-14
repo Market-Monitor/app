@@ -19,3 +19,16 @@ export type AssetDoc = Asset & {
 export type TradingCenterDoc = TradingCenter & {
   _id: string;
 };
+
+export type AppStats = {
+  tradingCenters: TradingCenterStats[];
+  assets: number;
+};
+
+export type TradingCenterStats = {
+  slug: string;
+  name: string;
+  vegetables: number;
+  priceUpdates: number;
+  vegetableCategories: number;
+};

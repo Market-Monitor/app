@@ -6,6 +6,7 @@ import mongoClient from "@/lib/db/mongodb";
 import { isStringEmpty } from "@/lib/utils";
 import { ActionReturnType } from "@/types/action-type";
 import { auth } from "@mm-app/auth/server";
+import { revalidateTag } from "next/cache";
 import { headers } from "next/headers";
 
 /**
@@ -111,6 +112,8 @@ export const updateVegetableCategories = async (
         message: "[Add Vegetable Categories] Error",
       };
     }
+
+    revalidateTag("get-app-stats");
 
     return {
       success: true,
