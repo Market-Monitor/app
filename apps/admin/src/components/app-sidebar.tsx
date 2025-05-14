@@ -1,9 +1,8 @@
 import { sidebarMenu } from "@/lib/menu";
-import UserDropdown from "@/modules/sidebar/user-menu";
+import AppSidebarFooter from "@/modules/sidebar/footer";
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -12,7 +11,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@mm-app/ui/components/sidebar";
-import ThemeSelection from "@mm-app/ui/components/theme-selection";
 import Link from "next/link";
 import AppLogo from "./app-logo";
 
@@ -45,11 +43,7 @@ export default function AppSidebar() {
         ))}
       </SidebarContent>
 
-      <SidebarFooter className="space-y-2">
-        <UserDropdown />
-
-        <ThemeSelection className="w-full" />
-      </SidebarFooter>
+      <AppSidebarFooter />
     </Sidebar>
   );
 }
