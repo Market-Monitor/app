@@ -6,7 +6,7 @@ import { VeggieCategory } from "@mm-app/internal/api";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Market Monitor",
+  title: "AgriTrakPH - View Vegetable Prices for Farmers",
   description: "",
 };
 

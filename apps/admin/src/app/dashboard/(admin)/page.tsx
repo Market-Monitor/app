@@ -22,11 +22,10 @@ export default async function AdminPage() {
   return (
     <Card className="h-full">
       <CardHeader>
-        <CardTitle>Market Monitor - Admin Dashboard</CardTitle>
+        <CardTitle>AgriTrakPH - Admin Dashboard</CardTitle>
         <CardDescription>
-          This is the admin dashboard for the Market Monitor application. Here
-          you can manage trading centers, assets, and other administrative
-          tasks.
+          This is the admin dashboard for the AgriTrakPH application. Here you
+          can manage trading centers, assets, and other administrative tasks.
         </CardDescription>
       </CardHeader>
 

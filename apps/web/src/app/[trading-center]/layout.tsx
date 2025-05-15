@@ -1,3 +1,4 @@
+import Footer from "@/components/footer";
 import Header from "@/components/header";
 import { veggiesAPI } from "@/lib/veggies-api/client";
 import { AppProvider } from "@/providers/app-provider";
@@ -31,6 +32,8 @@ export default async function Layout({
       <Header tradingCenter={tradingCenter} />
 
       <main className="w-11/12 lg:w-5/6 mx-auto my-12">{children}</main>
+
+      <Footer />
     </AppProvider>
   );
 }

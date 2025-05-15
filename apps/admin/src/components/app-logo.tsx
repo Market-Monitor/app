@@ -15,18 +15,18 @@ export default function AppLogo(props: {
       <Link href="/" className="flex flex-col items-center justify-center">
         <Image
           src={LogoPNG}
-          className={cn("w-12 h-12", props.imageClassName)}
-          alt="Market Monitor Logo"
+          className={cn("w-24 h-24", props.imageClassName)}
+          alt="AgriTrakPH Logo"
         />
 
         <h1
           className={cn(
-            "font-black text-lg dark:text-gray-200 leading-none mt-2 text-center",
+            "font-black text-lg dark:text-gray-200 leading-none text-center leading-normal",
             props.textClassName,
           )}
         >
-          <span className="text-primary">Market</span> Monitor <br />
-          <strong>[ADMIN]</strong>
+          <span className="text-primary">Agri</span>TrakPH <br />
+          <strong>(ADMIN)</strong>
         </h1>
       </Link>
     </div>
