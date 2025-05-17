@@ -75,7 +75,13 @@ export const historyPricesDTColumns: ColumnDef<VeggiePrice>[] = [
     cell: ({ row }) =>
       new Date(row.original.dateUnix).toLocaleDateString("en-US"),
     filterFn: (row, columnId, filterValue) => {
-      if (row.original.dateUnix === filterValue) {
+      const rowDate = new Date(row.original.dateISO);
+      const filterDate = new Date(filterValue);
+      if (
+        rowDate.getMonth() === filterDate.getMonth() &&
+        rowDate.getFullYear() === filterDate.getFullYear() &&
+        rowDate.getDate() === filterDate.getDate()
+      ) {
         return true;
       }
 
