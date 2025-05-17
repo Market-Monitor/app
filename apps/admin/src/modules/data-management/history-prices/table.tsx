@@ -33,6 +33,7 @@ interface DataTableProps<TData, TValue> {
 export default function HistoricalPricesTable<TData, TValue>(
   props: DataTableProps<TData, TValue>,
 ) {
+  const [globalFilter, setGlobalFilter] = useState("");
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [rowSelection, setRowSelection] = useState({});
@@ -47,7 +48,9 @@ export default function HistoricalPricesTable<TData, TValue>(
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     onRowSelectionChange: setRowSelection,
+    onGlobalFilterChange: setGlobalFilter,
     state: {
+      globalFilter,
       sorting,
       columnFilters,
       rowSelection,
@@ -60,10 +63,8 @@ export default function HistoricalPricesTable<TData, TValue>(
         <div>
           <Input
             placeholder="Filter vegetables..."
-            value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-            onChange={(e) =>
-              table.getColumn("name")?.setFilterValue(e.target.value)
-            }
+            value={table.getState().globalFilter ?? ""}
+            onChange={(e) => table.setGlobalFilter(String(e.target.value))}
             className="max-w-sm"
           />
         </div>
