@@ -1,3 +1,4 @@
+import { getCurrentTD } from "@/lib/current-td";
 import { veggiesAPI } from "@/lib/veggies-api/client";
 import { Button } from "@mm-app/ui/components/button";
 import { redirect } from "next/navigation";
@@ -13,6 +14,12 @@ export default async function Page() {
         </Button>
       </div>
     );
+  }
+
+  const currentTd = await getCurrentTD();
+  if (currentTd && tradingCenters.data.some((td) => td.slug === currentTd)) {
+    // If the current trading center is valid, redirect to it
+    return redirect(`/${currentTd}`);
   }
 
   return redirect(`/${tradingCenters.data[0]?.slug}`);

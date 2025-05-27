@@ -1,5 +1,6 @@
 "use client";
 
+import { setCurrentTD } from "@/lib/current-td";
 import { useAppData } from "@/providers/app-provider";
 import { TradingCenter } from "@mm-app/internal/api";
 import {
@@ -11,7 +12,7 @@ import {
 } from "@mm-app/ui/components/select";
 import { cn } from "@mm-app/ui/lib/utils";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function TradingCenterSelections(props: {
   className?: string;
@@ -23,10 +24,18 @@ export default function TradingCenterSelections(props: {
 
   const [value] = useState(tradingCenter);
 
+  useEffect(() => {
+    if (tradingCenter) {
+      setCurrentTD(tradingCenter);
+    }
+  }, [tradingCenter]);
+
   return (
     <Select
       value={value}
-      onValueChange={(value) => {
+      onValueChange={async (value) => {
+        await setCurrentTD(value);
+
         router.push(`/${value}`);
       }}
     >
