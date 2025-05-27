@@ -1,5 +1,6 @@
 "use client";
 
+import { clearCacheRedirect } from "@/lib/cache";
 import { authClient } from "@mm-app/auth/client";
 import { buttonVariants } from "@mm-app/ui/components/button";
 import {
@@ -22,7 +23,8 @@ export default function UserDropdown() {
   const signOut = async () => {
     await authClient.signOut({
       fetchOptions: {
-        onSuccess: () => {
+        onSuccess: async () => {
+          await clearCacheRedirect()
           router.push("/");
         },
       },
