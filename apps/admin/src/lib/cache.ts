@@ -2,15 +2,15 @@
 
 import { revalidatePath, revalidateTag } from "next/cache";
 
-export const clearCacheRedirect = async () => {
-  const tags = [
-    "get-all-veggies",
-    "get-all-veggie-categories",
-    "get-trading-centers",
-    "get-assets",
-    "get-app-stats",
-  ];
+const tags = ["get-trading-centers", "get-assets", "get-app-stats"];
 
+export const clearCacheOnly = async () => {
+  for (const item of tags) {
+    revalidateTag(item);
+  }
+};
+
+export const clearCacheRedirect = async () => {
   for (const item of tags) {
     revalidateTag(item);
   }
