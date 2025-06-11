@@ -9,17 +9,11 @@ import {
   useContext,
   useState,
 } from "react";
-
-// TODO: Re-think on how to implement edit / delete actions
+import VeggieCategoryEdit from "./veggie-categories-edit";
 
 type Action =
   | {
       type: "edit";
-      veggie: VeggieClass;
-      isOpen: true;
-    }
-  | {
-      type: "delete";
       veggie: VeggieClass;
       isOpen: true;
     }
@@ -76,9 +70,7 @@ export default function VeggieCategoriesActionsProvider(props: {
     >
       {props.children}
 
-      {/* <VeggieCategoryEdit /> */}
-
-      {/* <VeggieCategoryDelete /> */}
+      <VeggieCategoryEdit />
     </context.Provider>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { updateVeggieHistoryPrice } from "@/lib/server-actions/dt/history-price";
+import { isStringEmpty } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { VeggiePrice } from "@mm-app/internal/api";
 import { Button } from "@mm-app/ui/components/button";
@@ -80,8 +81,19 @@ export default function HistoryEdit() {
       return;
     }
 
+    if (isStringEmpty(data.parentName)) {
+      toast.error("Parent name cannot be empty");
+      return;
+    }
+
+    if (isStringEmpty(data.name)) {
+      toast.error("Name cannot be empty");
+      return;
+    }
+
     const update: Partial<VeggiePrice> = {
       _id: action.veggiePrice._id,
+      parentName: data.parentName,
       price: newPrices,
       id: data.id,
       name: data.name,
@@ -172,7 +184,7 @@ export default function HistoryEdit() {
                     <FormLabel>Parent</FormLabel>
 
                     <FormControl>
-                      <Input readOnly {...field} />
+                      <Input {...field} />
                     </FormControl>
                   </FormItem>
                 )}

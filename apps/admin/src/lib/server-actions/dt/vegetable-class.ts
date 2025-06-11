@@ -4,7 +4,7 @@ import { getTradingCenters } from "@/lib/db-queries/trading-centers";
 import { getMmDb, tdCollections } from "@/lib/db/config";
 import mongoClient from "@/lib/db/mongodb";
 import { auth } from "@mm-app/auth/server";
-import { Veggie } from "@mm-app/internal/api";
+import { VeggieClass } from "@mm-app/internal/api";
 import { ObjectId } from "mongodb";
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
@@ -12,12 +12,12 @@ import { headers } from "next/headers";
 /**
  * Update a vegetable in the database
  *
- * @param veggie
+ * @param data
  * @param tradingCenter
  * @returns
  */
-export const updateVegetable = async (
-  veggie: Partial<Veggie>,
+export const updateVegetableClass = async (
+  data: Partial<VeggieClass>,
   tradingCenter: string,
 ) => {
   const session = await auth.api.getSession({
@@ -30,7 +30,7 @@ export const updateVegetable = async (
     };
   }
 
-  if (Object.keys(veggie).length === 0) {
+  if (Object.keys(data).length === 0) {
     return {
       success: false,
       message: "No updates provided",
@@ -58,10 +58,10 @@ export const updateVegetable = async (
   }
 
   const db = mongoClient.db(getMmDb(tradingCenter));
-  const veggiesCol = db.collection(tdCollections.veggies);
+  const veggiesCol = db.collection(tdCollections.veggiesClasses);
 
   try {
-    const { _id, ...updates } = veggie;
+    const { _id, ...updates } = data;
 
     if (!_id) {
       throw new Error("No ID provided");
@@ -79,21 +79,21 @@ export const updateVegetable = async (
       },
     );
     if (!res.acknowledged) {
-      throw new Error("Failed to update veggie");
+      throw new Error("Failed to update veggie class");
     }
 
     // Revalidate cache
-    revalidatePath("/dashboard/data-management/vegetables");
+    revalidatePath("/dashboard/data-management/vegetable-categories");
 
     return {
       success: true,
-      message: "Veggie updated successfully",
+      message: "Veggie class updated successfully",
     };
   } catch (err) {
-    console.error("Error updating veggie:", err);
+    console.error("Error updating veggie class:", err);
     return {
       success: false,
-      message: "Failed to update veggie: " + err,
+      message: "Failed to update veggie class: " + err,
     };
   }
 };

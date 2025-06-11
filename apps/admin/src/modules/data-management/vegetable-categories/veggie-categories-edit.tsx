@@ -1,9 +1,9 @@
 "use client";
 
-import { updateVegetable } from "@/lib/server-actions/dt/vegetable";
+import { updateVegetableClass } from "@/lib/server-actions/dt/vegetable-class";
 import { isStringEmpty } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Veggie } from "@mm-app/internal/api";
+import { VeggieClass } from "@mm-app/internal/api";
 import { Button } from "@mm-app/ui/components/button";
 import {
   Dialog,
@@ -21,31 +21,27 @@ import {
   FormLabel,
 } from "@mm-app/ui/components/form";
 import { Input } from "@mm-app/ui/components/input";
-import Image from "next/image";
 import { startTransition, useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { useDataManagement } from "../dt-provider";
-import { useVeggieActions } from "./actions-provider";
-import VeggieEditImage from "./veggie-edit-image";
+import { useVeggieCategoryActions } from "./actions-provider";
 
 const editFormSchema = z.object({
   id: z.string(),
   name: z.string(),
-  imageUrl: z.string(),
-  imageSource: z.string(),
 });
 
 type EditForm = z.infer<typeof editFormSchema>;
 
-export default function VeggieEdit() {
+export default function VeggieCategoryEdit() {
   const { tradingCenter } = useDataManagement();
 
   const [isSet, setIsSet] = useState(false);
   const [isProcessing, setTransition] = useTransition();
 
-  const { action, handleCloseAction } = useVeggieActions();
+  const { action, handleCloseAction } = useVeggieCategoryActions();
 
   const form = useForm<EditForm>({
     resolver: zodResolver(editFormSchema),
@@ -53,51 +49,43 @@ export default function VeggieEdit() {
       ? {
           id: action.veggie.id,
           name: action.veggie.name,
-          imageUrl: action.veggie.imageUrl,
-          imageSource: action.veggie.imageSource,
         }
       : {
           id: "",
           name: "",
-          imageUrl: "",
-          imageSource: "",
         },
   });
 
-  const handleSubmit = (data: EditForm) => {
+  const handleSubmit = async (data: EditForm) => {
     if (!action.isOpen) return;
 
     if (isStringEmpty(data.name)) {
-      toast.error("Name cannot be empty");
+      toast.error("Name is required");
       return;
     }
 
-    const update: Partial<Veggie> = {
+    const update: Partial<VeggieClass> = {
       _id: action.veggie._id,
       name: data.name,
-      imageUrl: data.imageUrl,
-      imageSource: data.imageSource,
     };
 
     const process = toast.loading("Updating...");
 
     setTransition(async () => {
-      const res = await updateVegetable(update, tradingCenter);
-      if (!res?.success) {
+      const res = await updateVegetableClass(update, tradingCenter);
+      if (!res.success) {
         toast.error("Failed to update", { id: process });
         return;
       }
 
       startTransition(() => {
-        toast.success("Updated", { id: process });
+        toast.success("Vegetable updated successfully", { id: process });
 
         // Close edit dialog
         handleCloseAction(false);
       });
     });
   };
-
-  const formImageUrl = form.watch("imageUrl");
 
   useEffect(() => {
     if (isSet) return;
@@ -106,8 +94,6 @@ export default function VeggieEdit() {
       form.reset({
         id: action.veggie.id,
         name: action.veggie.name,
-        imageUrl: action.veggie.imageUrl,
-        imageSource: action.veggie.imageSource,
       });
 
       setIsSet(true);
@@ -132,8 +118,7 @@ export default function VeggieEdit() {
         <DialogHeader>
           <DialogTitle>Edit Vegetable</DialogTitle>
           <DialogDescription>
-            If you edit the name, please edit also in the vegetable categories
-            and history prices to reflect the changes.
+            For now, editing the name is not allowed.
           </DialogDescription>
         </DialogHeader>
 
@@ -167,46 +152,6 @@ export default function VeggieEdit() {
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="imageUrl"
-                render={({ field }) => (
-                  <FormItem className="space-y-1">
-                    <FormLabel>Image URL</FormLabel>
-
-                    <div className="flex items-center min-h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 read-only:opacity-50 md:text-sm break-all">
-                      {(field.value?.length ?? 0) > 0
-                        ? field.value
-                        : "Select image..."}
-                    </div>
-
-                    <div className="space-y-1 flex flex-col w-full">
-                      <div className="relative h-[150px]">
-                        {(formImageUrl?.length ?? 0) > 0 ? (
-                          <Image
-                            src={formImageUrl}
-                            alt={formImageUrl}
-                            sizes="34rem"
-                            fill
-                            priority
-                            className="rounded-lg object-cover"
-                          />
-                        ) : (
-                          <div className="absolute rounded-lg border h-full w-full"></div>
-                        )}
-                      </div>
-
-                      <VeggieEditImage
-                        handleSelection={(imgValue, imgSource) => {
-                          form.setValue("imageUrl", imgValue);
-                          form.setValue("imageSource", imgSource);
-                        }}
-                      />
-                    </div>
                   </FormItem>
                 )}
               />

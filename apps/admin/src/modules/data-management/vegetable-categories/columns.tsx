@@ -3,8 +3,16 @@
 import { VeggieClass } from "@mm-app/internal/api";
 import { Button } from "@mm-app/ui/components/button";
 import { Checkbox } from "@mm-app/ui/components/checkbox";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from "@mm-app/ui/components/dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDownIcon } from "lucide-react";
+import { ArrowUpDownIcon, EditIcon, MoreHorizontalIcon } from "lucide-react";
+import { useVeggieCategoryActions } from "./actions-provider";
 
 export const veggiesDTColumns: ColumnDef<VeggieClass>[] = [
   {
@@ -47,52 +55,39 @@ export const veggiesDTColumns: ColumnDef<VeggieClass>[] = [
     accessorKey: "id",
     header: "ID",
   },
-  // TODO: Re-think on how to re-implement this
-  // {
-  //   id: "actions",
-  //   enableHiding: false,
-  //   header: "Actions",
-  //   cell: function ActionsCell({ row }) {
-  //     const { setAction } = useVeggieCategoryActions();
+  {
+    id: "actions",
+    enableHiding: false,
+    header: "Actions",
+    cell: function ActionsCell({ row }) {
+      const { setAction } = useVeggieCategoryActions();
 
-  //     return (
-  //       <DropdownMenu>
-  //         <DropdownMenuTrigger asChild>
-  //           <Button variant={"ghost"}>
-  //             <MoreHorizontalIcon />
-  //             <span className="sr-only">Actions</span>
-  //           </Button>
-  //         </DropdownMenuTrigger>
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant={"ghost"}>
+              <MoreHorizontalIcon />
+              <span className="sr-only">Actions</span>
+            </Button>
+          </DropdownMenuTrigger>
 
-  //         <DropdownMenuContent align="end" className="w-[200px]">
-  //           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-  //           <DropdownMenuItem
-  //             onSelect={() => {
-  //               setAction({
-  //                 type: "edit",
-  //                 isOpen: true,
-  //                 veggie: row.original,
-  //               });
-  //             }}
-  //           >
-  //             <EditIcon />
-  //             Edit
-  //           </DropdownMenuItem>
-  //           <DropdownMenuItem
-  //             onSelect={() => {
-  //               setAction({
-  //                 type: "delete",
-  //                 isOpen: true,
-  //                 veggie: row.original,
-  //               });
-  //             }}
-  //           >
-  //             <TrashIcon />
-  //             Delete
-  //           </DropdownMenuItem>
-  //         </DropdownMenuContent>
-  //       </DropdownMenu>
-  //     );
-  //   },
-  // },
+          <DropdownMenuContent align="end" className="w-[200px]">
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuItem
+              onSelect={() => {
+                setAction({
+                  type: "edit",
+                  isOpen: true,
+                  veggie: row.original,
+                });
+              }}
+            >
+              <EditIcon />
+              Edit
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+    },
+  },
 ];
