@@ -12,8 +12,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@mm-app/ui/components/card";
+import { Checkbox } from "@mm-app/ui/components/checkbox";
 import {
   Form,
+  FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -34,6 +37,7 @@ import { z } from "zod";
 const formSchema = z.object({
   value: z.string(),
   tradingCenter: z.string(),
+  forceInsert: z.boolean().optional(),
 });
 
 type FormSchema = z.infer<typeof formSchema>;
@@ -46,6 +50,7 @@ export default function PriceUpdatesLatest(props: {
     defaultValues: {
       value: "[]",
       tradingCenter: props.tradingCenters[0]?.slug || "",
+      forceInsert: false,
     },
   });
 
@@ -68,7 +73,9 @@ export default function PriceUpdatesLatest(props: {
       const process = toast.loading("Processing...");
 
       startTransition(async () => {
-        const res = await updateLatestPrices(parsedData, data.tradingCenter);
+        const res = await updateLatestPrices(parsedData, data.tradingCenter, {
+          forceInsert: data.forceInsert,
+        });
         if (!res.success) {
           toast.error(`Error: ${res.message}`, {
             id: process,
@@ -119,30 +126,58 @@ export default function PriceUpdatesLatest(props: {
             />
 
             <div className="flex flex-row items-center justify-between">
-              <FormField
-                control={form.control}
-                name="tradingCenter"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Trading Center</FormLabel>
-                    <Select onValueChange={field.onChange} value={field.value}>
-                      <SelectTrigger className="w-[300px]">
-                        <SelectValue placeholder="Select Trading Center" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {props.tradingCenters.map((tradingCenter) => (
-                          <SelectItem
-                            key={tradingCenter._id.toString()}
-                            value={tradingCenter.slug}
-                          >
-                            {tradingCenter.name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </FormItem>
-                )}
-              />
+              <div className="flex flex-row items-end space-x-4">
+                <FormField
+                  control={form.control}
+                  name="tradingCenter"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Trading Center</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                      >
+                        <SelectTrigger className="w-[300px]">
+                          <SelectValue placeholder="Select Trading Center" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {props.tradingCenters.map((tradingCenter) => (
+                            <SelectItem
+                              key={tradingCenter._id.toString()}
+                              value={tradingCenter.slug}
+                            >
+                              {tradingCenter.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  name="forceInsert"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem className="flex items-start">
+                      <FormControl>
+                        <Checkbox
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
+                      </FormControl>
+                      <div>
+                        <FormLabel>Force Insert</FormLabel>
+                        <FormDescription className="text-xs">
+                          If checked, it will ignore existing data date checks
+                          and forcefully adds the data.
+                          <br />
+                          Only check if you know what you are doing.
+                        </FormDescription>
+                      </div>
+                    </FormItem>
+                  )}
+                />
+              </div>
 
               <div>
                 <Button

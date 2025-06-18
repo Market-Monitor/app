@@ -39,6 +39,9 @@ export interface PriceData {
 export const updateLatestPrices = async (
   data: PriceData[],
   tradingCenter: string,
+  options?: {
+    forceInsert?: boolean;
+  },
 ): Promise<ActionReturnType> => {
   const session = await auth.api.getSession({
     headers: await headers(),
@@ -144,6 +147,13 @@ export const updateLatestPrices = async (
             parentName: data.name,
             tradingCenter: tradingCenter,
           };
+
+          if (options?.forceInsert) {
+            console.log("[Add Price Data] Force inserting ::>", newItem.id);
+            dataToInsert.push(newItem);
+
+            continue;
+          }
 
           if (datesCounts[newItem.dateUnix.toString()] == null) {
             const countDocsByDate = await historyPricesCol.countDocuments({
