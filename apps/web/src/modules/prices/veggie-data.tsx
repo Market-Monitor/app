@@ -56,11 +56,16 @@ export default function PricesVeggieData({
             </div>
 
             <div className="space-y-3">
-              <h3 className="text-5xl font-black">
+              <h3 className="text-5xl font-black inline-block">
                 <PesoSign />
                 {latestPriceData.price[0]} - <PesoSign />
                 {latestPriceData.price[1]}
-              </h3>
+              </h3>{" "}
+              {veggieData.priceUnit ? (
+                <span className="text-sm inline-block text-muted-foreground">
+                  (per <strong>{veggieData.priceUnit}</strong>)
+                </span>
+              ) : null}
             </div>
             <SelectionClasses
               id={params.id}
