@@ -21,6 +21,7 @@ export enum VeggieCategory {
 }
 
 export interface Veggie extends _Doc {
+  priceUnit?: string;
   imageUrl?: string;
   imageSource?: string;
 }

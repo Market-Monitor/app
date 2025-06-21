@@ -19,8 +19,16 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@mm-app/ui/components/form";
 import { Input } from "@mm-app/ui/components/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@mm-app/ui/components/select";
 import Image from "next/image";
 import { startTransition, useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
@@ -33,6 +41,7 @@ import VeggieEditImage from "./veggie-edit-image";
 const editFormSchema = z.object({
   id: z.string(),
   name: z.string(),
+  priceUnit: z.string(),
   imageUrl: z.string(),
   imageSource: z.string(),
 });
@@ -55,12 +64,14 @@ export default function VeggieEdit() {
           name: action.veggie.name,
           imageUrl: action.veggie.imageUrl,
           imageSource: action.veggie.imageSource,
+          priceUnit: action.veggie.priceUnit ?? "",
         }
       : {
           id: "",
           name: "",
           imageUrl: "",
           imageSource: "",
+          priceUnit: "",
         },
   });
 
@@ -75,6 +86,7 @@ export default function VeggieEdit() {
     const update: Partial<Veggie> = {
       _id: action.veggie._id,
       name: data.name,
+      priceUnit: data.priceUnit,
       imageUrl: data.imageUrl,
       imageSource: data.imageSource,
     };
@@ -106,6 +118,7 @@ export default function VeggieEdit() {
       form.reset({
         id: action.veggie.id,
         name: action.veggie.name,
+        priceUnit: action.veggie.priceUnit,
         imageUrl: action.veggie.imageUrl,
         imageSource: action.veggie.imageSource,
       });
@@ -167,6 +180,30 @@ export default function VeggieEdit() {
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="priceUnit"
+                render={({ field }) => (
+                  <FormItem className="space-y-1">
+                    <FormLabel>Price Unit</FormLabel>
+
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <FormControl>
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Select price unit" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="kilo">Kilo</SelectItem>
+                        <SelectItem value="bag">Bag</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
