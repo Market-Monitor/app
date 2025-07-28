@@ -32,3 +32,13 @@ export type TradingCenterStats = {
   priceUpdates: number;
   vegetableCategories: number;
 };
+
+export type TradingCenterConfig = {
+  configId: number;
+  latestDataDate: string;
+};
+
+export type GetTradingCenters = TradingCenterDoc & {
+  _id: string;
+  config: TradingCenterConfig;
+};

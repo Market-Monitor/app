@@ -17,7 +17,7 @@ import {
 
 export default async function AdminVegetablesPage() {
   const tradingCenters = await getTradingCenters();
-  if (!tradingCenters) {
+  if (!tradingCenters.success) {
     return null;
   }
 

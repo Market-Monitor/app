@@ -1,5 +1,6 @@
 import { getTradingCenters } from "@/lib/db-queries/trading-centers";
 import PriceUpdatesLatest from "@/modules/price-updates/latest-prices";
+import LatestUpdatesCard from "@/modules/price-updates/latest-updates-card";
 import PriceUpdatesVegetableCategories from "@/modules/price-updates/vegetable-categories";
 import PriceUpdatesVegetables from "@/modules/price-updates/vegetables";
 import {
@@ -18,13 +19,13 @@ import {
 
 export default async function AdminPricesPage() {
   const tradingCenters = await getTradingCenters();
-  if (!tradingCenters) return null;
+  if (!tradingCenters.success) return null;
 
   return (
     <div>
       <Card>
         <CardHeader>
-          <CardTitle>Update Latest Prices</CardTitle>
+          <CardTitle className="text-xl">Update Latest Prices</CardTitle>
           <CardDescription>
             Add and import new latest vegetable prices, data and new sub
             categories / classes.
@@ -32,6 +33,8 @@ export default async function AdminPricesPage() {
         </CardHeader>
 
         <CardContent className="space-y-4">
+          <LatestUpdatesCard tradingCenters={tradingCenters.data} />
+
           <Tabs defaultValue="latest-prices" className="w-full">
             <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger className="cursor-pointer" value="latest-prices">

@@ -15,7 +15,7 @@ import {
 
 export default async function AdminHistoricalPricesPage() {
   const tradingCenters = await getTradingCenters();
-  if (!tradingCenters) {
+  if (!tradingCenters.success) {
     return null;
   }
 
