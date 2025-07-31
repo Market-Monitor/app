@@ -99,6 +99,7 @@ export const updateVegetables = async (
     }
 
     revalidateTag("get-app-stats");
+    revalidateTag("get-trading-centers");
 
     return {
       success: true,

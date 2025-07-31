@@ -114,6 +114,7 @@ export const updateVegetableCategories = async (
     }
 
     revalidateTag("get-app-stats");
+    revalidateTag("get-trading-centers");
 
     return {
       success: true,
