@@ -9,11 +9,17 @@ import {
   useContext,
   useState,
 } from "react";
+import HistoryDelete from "./history-delete";
 import HistoryEdit from "./history-edit";
 
 type Action =
   | {
       type: "edit";
+      veggiePrice: VeggiePrice;
+      isOpen: true;
+    }
+  | {
+      type: "delete";
       veggiePrice: VeggiePrice;
       isOpen: true;
     }
@@ -71,6 +77,8 @@ export default function HistoryActionsProvider(props: {
       {props.children}
 
       <HistoryEdit />
+
+      <HistoryDelete />
     </context.Provider>
   );
 }

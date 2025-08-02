@@ -11,7 +11,12 @@ import {
   DropdownMenuTrigger,
 } from "@mm-app/ui/components/dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDownIcon, EditIcon, MoreHorizontalIcon } from "lucide-react";
+import {
+  ArrowUpDownIcon,
+  DeleteIcon,
+  EditIcon,
+  MoreHorizontalIcon,
+} from "lucide-react";
 import { useHistoryDataActions } from "./actions-provider";
 
 export const historyPricesDTColumns: ColumnDef<VeggiePrice>[] = [
@@ -117,6 +122,18 @@ export const historyPricesDTColumns: ColumnDef<VeggiePrice>[] = [
             >
               <EditIcon />
               Edit
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onSelect={() => {
+                setAction({
+                  type: "delete",
+                  isOpen: true,
+                  veggiePrice: row.original,
+                });
+              }}
+            >
+              <DeleteIcon />
+              Delete
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

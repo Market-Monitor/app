@@ -150,7 +150,7 @@ export default function HistoryEdit() {
         className="max-w-xl"
       >
         <DialogHeader>
-          <DialogTitle>Edit Vegetable</DialogTitle>
+          <DialogTitle>Edit Historical Price</DialogTitle>
           <DialogDescription>
             For now, editing the name is not allowed.
           </DialogDescription>
