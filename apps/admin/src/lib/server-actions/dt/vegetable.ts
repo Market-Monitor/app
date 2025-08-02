@@ -5,7 +5,7 @@ import { getMmDb, tdCollections } from "@/lib/db/config";
 import mongoClient from "@/lib/db/mongodb";
 import { auth } from "@mm-app/auth/server";
 import { Veggie } from "@mm-app/internal/api";
-import { ObjectId } from "mongodb";
+import { ObjectId, WithId } from "mongodb";
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 
@@ -68,7 +68,8 @@ export const updateVegetable = async (
     }
 
     // Update veggie in the database
-    const res = await veggiesCol.updateOne(
+    // Do not return latest data, for we need the old name to update classes and history prices
+    const res = (await veggiesCol.findOneAndUpdate(
       {
         _id: new ObjectId(_id),
       },
@@ -77,9 +78,56 @@ export const updateVegetable = async (
           ...updates,
         },
       },
-    );
-    if (!res.acknowledged) {
+    )) as WithId<Veggie> | null;
+    if (!res) {
       throw new Error("Failed to update veggie");
+    }
+
+    // If name is provided, we update all children in VeggieClass and HistoryPrice
+    if (veggie.name != null && veggie.name !== "") {
+      console.log(
+        "[i] Updating veggie classes and history prices with new name ::",
+        veggie.name,
+        res,
+      );
+
+      const veggiesClassesCol = db.collection(tdCollections.veggiesClasses);
+      const historyPricesCol = db.collection(tdCollections.historyPrices);
+
+      // Update all veggie classes with the new name
+      const upClasses = await veggiesClassesCol.updateMany(
+        { parentId: res.id },
+        [
+          {
+            $set: {
+              parentName: veggie.name,
+              name: {
+                $replaceOne: {
+                  input: "$name",
+                  find: res.name,
+                  replacement: veggie.name,
+                },
+              },
+            },
+          },
+        ],
+      );
+      if (!upClasses.acknowledged) {
+        throw new Error("Failed to update veggie classes");
+      }
+
+      // Update all history prices with the new name
+      const upPrices = await historyPricesCol.updateMany(
+        { parentId: res.id },
+        { $set: { parentName: veggie.name } },
+      );
+      if (!upPrices.acknowledged) {
+        throw new Error("Failed to update history prices");
+      }
+
+      // Revalidate cache for veggie classes and history prices
+      revalidatePath("/dashboard/data-management/vegetable-categories");
+      revalidatePath("/dashboard/data-management/historical-prices");
     }
 
     // Revalidate cache

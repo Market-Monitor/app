@@ -85,11 +85,15 @@ export default function VeggieEdit() {
 
     const update: Partial<Veggie> = {
       _id: action.veggie._id,
-      name: data.name,
       priceUnit: data.priceUnit,
       imageUrl: data.imageUrl,
       imageSource: data.imageSource,
     };
+
+    // Update name only if it has changed
+    if (data.name !== action.veggie.name) {
+      update.name = data.name;
+    }
 
     const process = toast.loading("Updating...");
 
