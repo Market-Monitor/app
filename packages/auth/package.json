@@ -20,10 +20,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "better-auth": "^1.2.7",
-    "kysely": "^0.28.2",
+    "better-auth": "^1.3.6",
+    "kysely": "^0.28.5",
     "next": "catalog:",
-    "pg": "^8.15.6"
+    "pg": "^8.15.6",
+    "zod": "^4.0.17"
   },
   "devDependencies": {
     "@better-auth/cli": "^1.2.7",
