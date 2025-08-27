@@ -118,7 +118,16 @@ export default function VeggieCategoryEdit() {
         <DialogHeader>
           <DialogTitle>Edit Vegetable</DialogTitle>
           <DialogDescription>
-            For now, editing the name is not allowed.
+            * Make sure to not update the name of the parent name too. Example:{" "}
+            <code className="bg-secondary px-1 py-0.5 rounded-lg">
+              Veggie Good
+            </code>
+            ,{" "}
+            <code className="bg-secondary px-1 py-0.5 rounded-lg">Veggie</code>{" "}
+            is the parent name, update only{" "}
+            <code className="bg-secondary px-1 py-0.5 rounded-lg">Good</code>{" "}
+            since it is the category / class name. This will be fixed in the
+            future.
           </DialogDescription>
         </DialogHeader>
 
