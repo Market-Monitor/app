@@ -60,17 +60,19 @@ export default function HomeLatestPricesData(props: {
               <Fragment key={item.parentId}>
                 <TableRow>
                   <TableCell colSpan={2}>
-                    <strong className="text-base">{item.parentName}</strong>
+                    <strong className="text-sm lg:text-base">
+                      {item.parentName}
+                    </strong>
                   </TableCell>
                 </TableRow>
                 {item.classes.map((cls) => (
                   <TableRow key={cls.id}>
-                    <TableCell className="pl-8">
+                    <TableCell className="pl-8 text-sm lg:text-base py-3">
                       <Tooltip>
                         <TooltipTrigger asChild>
                           <Link
                             href={`/${props.tradingCenter}/prices/${item.parentId}/${cls.id}`}
-                            className="space-x-2 hover:underline hover:text-primary text-base"
+                            className="space-x-2 hover:underline hover:text-primary"
                             target="_blank"
                             rel="noopener noreferrer"
                           >
@@ -82,7 +84,7 @@ export default function HomeLatestPricesData(props: {
                         <TooltipContent>View more price details</TooltipContent>
                       </Tooltip>
                     </TableCell>
-                    <TableCell>
+                    <TableCell className="text-sm lg:text-base py-3">
                       <PesoSign />
                       {cls.price[0]} - <PesoSign />
                       {cls.price[1] ?? [cls.price[0]]}
