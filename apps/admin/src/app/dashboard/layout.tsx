@@ -1,9 +1,8 @@
 import { auth } from "@mm-app/auth/server";
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
-import { ReactNode } from "react";
 
-export default async function Laoyut(props: { children: ReactNode }) {
+export default async function Layout(props: LayoutProps<"/dashboard">) {
   const user = await auth.api.getSession({
     headers: await headers(),
   });

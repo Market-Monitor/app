@@ -7,13 +7,9 @@ import { Card } from "@mm-app/ui/components/card";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-export const generateMetadata = async (props: {
-  params: Promise<{
-    id: string;
-    classId: string;
-    "trading-center": string;
-  }>;
-}): Promise<Metadata> => {
+export const generateMetadata = async (
+  props: PageProps<"/[trading-center]/prices/[id]/[classId]">,
+): Promise<Metadata> => {
   const params = await props.params;
 
   const veggieData = await veggiesAPI.getVeggie(params["trading-center"], {

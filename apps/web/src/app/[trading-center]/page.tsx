@@ -10,11 +10,7 @@ export const metadata: Metadata = {
   description: "",
 };
 
-export default async function Page(props: {
-  params: Promise<{
-    "trading-center": string;
-  }>;
-}) {
+export default async function Page(props: PageProps<"/[trading-center]">) {
   const tradingCenter = (await props.params)["trading-center"];
   const latestPricesData = await veggiesAPI.getLatestPrices(tradingCenter);
 

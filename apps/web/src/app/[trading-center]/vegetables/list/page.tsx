@@ -16,11 +16,9 @@ export const metadata: Metadata = {
   description: "Available vegetables with price data and more",
 };
 
-export default async function VeggiesListPage(props: {
-  params: Promise<{
-    "trading-center": string;
-  }>;
-}) {
+export default async function VeggiesListPage(
+  props: PageProps<"/[trading-center]/vegetables/list">,
+) {
   const params = await props.params;
   const tradingCenter = params["trading-center"];
 

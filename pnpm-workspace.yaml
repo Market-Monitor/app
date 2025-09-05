@@ -1,21 +1,25 @@
 packages:
   - apps/*
   - packages/*
+
 catalog:
-  next: ^15.4.6
-  typescript: ^5.8.3
+  next: ^15.5.2
+  typescript: ^5.9.2
+
 catalogs:
   react:
-    react: 19.1.1
-    react-dom: 19.1.1
     '@types/react': 19.1.8
     '@types/react-dom': 19.1.6
-onlyBuiltDependencies:
-  - '@tailwindcss/oxide'
-  - core-js-pure
-  - sharp
+    react: 19.1.1
+    react-dom: 19.1.1
+
 ignoredBuiltDependencies:
   - '@prisma/client'
   - '@prisma/engines'
   - better-sqlite3
   - prisma
+
+onlyBuiltDependencies:
+  - '@tailwindcss/oxide'
+  - core-js-pure
+  - sharp

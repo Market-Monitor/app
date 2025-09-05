@@ -3,28 +3,22 @@ import Header from "@/components/header";
 import { veggiesAPI } from "@/lib/veggies-api/client";
 import { AppProvider } from "@/providers/app-provider";
 import { notFound } from "next/navigation";
-import { ReactNode } from "react";
 
 export default async function Layout({
   children,
   params,
-}: {
-  children: ReactNode;
-  params: Promise<{
-    "trading-center": string;
-  }>;
-}) {
+}: LayoutProps<"/[trading-center]">) {
   const tradingCenter = (await params)["trading-center"];
 
   const tradingCenters = await veggiesAPI.getTradingCenters();
   if (!tradingCenters.success) {
-    return notFound();
+    notFound();
   }
 
   // Check if the trading center exists
   const td = tradingCenters.data.find((item) => item.slug === tradingCenter);
   if (!td) {
-    return notFound();
+    notFound();
   }
 
   return (

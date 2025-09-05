@@ -1,9 +1,8 @@
 import AppHeader from "@/components/app-header";
 import AppSidebar from "@/components/app-sidebar";
 import { SidebarProvider } from "@mm-app/ui/components/sidebar";
-import { ReactNode } from "react";
 
-export default function AdminDashboardLayout(props: { children: ReactNode }) {
+export default function AdminDashboardLayout(props: LayoutProps<"/dashboard">) {
   return (
     <SidebarProvider>
       <AppSidebar />

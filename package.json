@@ -11,11 +11,11 @@
   "devDependencies": {
     "@mm-app/eslint-config": "workspace:*",
     "@mm-app/typescript-config": "workspace:*",
-    "prettier": "^3.5.3",
+    "prettier": "^3.6.2",
     "turbo": "^2.5.6",
     "typescript": "catalog:"
   },
-  "packageManager": "pnpm@10.15.0",
+  "packageManager": "pnpm@10.15.1",
   "engines": {
     "node": ">=20"
   }

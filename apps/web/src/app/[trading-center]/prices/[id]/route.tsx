@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 
 export const GET = async (
   req: Request,
-  { params }: { params: Promise<{ id: string; "trading-center": string }> },
+  { params }: RouteContext<"/[trading-center]/prices/[id]">,
 ) => {
   const pars = await params;
   const id = pars.id;
