@@ -3,6 +3,7 @@ export interface TradingCenter {
   longName: string;
   addedDate?: string;
   slug: string;
+  facebookPage?: string;
 }
 
 export interface Asset {

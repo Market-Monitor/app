@@ -61,4 +61,5 @@ export interface TradingCenter {
   name: string;
   longName: string;
   slug: string;
+  facebookPage?: string;
 }

@@ -1,6 +1,6 @@
 import { EmptyCard } from "@/components/empty-card";
 import { getTradingCenters } from "@/lib/db-queries/trading-centers";
-import DataTradingCentersTable from "@/modules/dt/trading-centers";
+import DataTradingCentersTable from "@/modules/dt/trading-centers/table";
 import {
   Card,
   CardContent,
