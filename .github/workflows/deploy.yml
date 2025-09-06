@@ -18,7 +18,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            echo "Deploying JobTrackify..."
+            echo "Deploying AgriTrakPH [MarketMonitor]..."
             cd ${{secrets.FOLDER_PATH}}
             git pull origin main
             docker compose up -d --build
