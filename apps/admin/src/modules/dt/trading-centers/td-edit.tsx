@@ -24,7 +24,7 @@ import { Input } from "@mm-app/ui/components/input";
 import { useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import * as z from "zod/v4";
+import { z } from "zod";
 import { useTradingCentersActions } from "./context";
 
 const editFormSchema = z.object({
@@ -32,7 +32,7 @@ const editFormSchema = z.object({
   name: z.string(),
   longName: z.string(),
   slug: z.string(),
-  facebookPage: z.url().optional().or(z.literal("")),
+  facebookPage: z.string().url().optional().or(z.literal("")),
 });
 
 type EditForm = z.infer<typeof editFormSchema>;
