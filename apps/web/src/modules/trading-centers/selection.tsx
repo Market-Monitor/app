@@ -6,13 +6,13 @@ import { TradingCenter } from "@mm-app/internal/api";
 import {
   Select,
   SelectContent,
-  SelectItem,
   SelectTrigger,
   SelectValue,
 } from "@mm-app/ui/components/select";
 import { cn } from "@mm-app/ui/lib/utils";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import TradingCenterSelectionItem from "./selection-item";
 
 export default function TradingCenterSelections(props: {
   className?: string;
@@ -44,9 +44,11 @@ export default function TradingCenterSelections(props: {
       </SelectTrigger>
       <SelectContent>
         {props.tradingCenters.map((item) => (
-          <SelectItem key={item._id} value={item.slug}>
-            {item.name}
-          </SelectItem>
+          <TradingCenterSelectionItem
+            isCurrent={value === item.slug}
+            key={item._id}
+            tradingCenter={item}
+          />
         ))}
       </SelectContent>
     </Select>
