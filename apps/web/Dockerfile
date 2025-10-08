@@ -9,7 +9,7 @@ FROM node:${NODE_VERSION}-slim AS slim
 FROM slim AS base
 RUN corepack enable
 RUN npm install -g corepack@latest
-RUN npm install turbo@2.5.2 --global
+RUN npm install turbo@2.5.8 --global
 RUN pnpm config set store-dir ~/.pnpm-store
 
 # 2. Prune projects
