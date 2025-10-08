@@ -56,33 +56,39 @@ export default function VeggieEditImage(props: {
 
         <ScrollArea className="max-h-[500px]">
           <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 ">
-            {assets.map((item) => (
-              <div
-                onClick={() => {
-                  if (selected === item._id) {
-                    setSelected(null);
-                  } else {
-                    setSelected(item._id);
-                  }
-                }}
-                key={item._id}
-                className={cn(
-                  "relative h-[100px] cursor-pointer border-2 border-transparent rounded-lg group",
-                  {
-                    "border-primary": selected === item._id,
-                  },
-                )}
-              >
-                <Image
-                  src={item.image}
-                  alt={item.image}
-                  fill
-                  priority
-                  sizes="60vw (max-width: 768px) 50vw, 33vw, (max-width: 1024px) 50vw, 25vw, (max-width: 1280px) 50vw, 20vw"
-                  className="object-cover rounded-lg brightness-90 group-hover:brightness-100 group-focus-within:brightness-100 duration-300"
-                />
-              </div>
-            ))}
+            {assets
+              .sort(
+                (a, b) =>
+                  new Date(b.uploadedDate).getTime() -
+                  new Date(a.uploadedDate).getTime(),
+              )
+              .map((item) => (
+                <div
+                  onClick={() => {
+                    if (selected === item._id) {
+                      setSelected(null);
+                    } else {
+                      setSelected(item._id);
+                    }
+                  }}
+                  key={item._id}
+                  className={cn(
+                    "relative h-[100px] cursor-pointer border-2 border-transparent rounded-lg group",
+                    {
+                      "border-primary": selected === item._id,
+                    },
+                  )}
+                >
+                  <Image
+                    src={item.image}
+                    alt={item.image}
+                    fill
+                    priority
+                    sizes="60vw (max-width: 768px) 50vw, 33vw, (max-width: 1024px) 50vw, 25vw, (max-width: 1280px) 50vw, 20vw"
+                    className="object-cover rounded-lg brightness-90 group-hover:brightness-100 group-focus-within:brightness-100 duration-300"
+                  />
+                </div>
+              ))}
           </div>
         </ScrollArea>
 
