@@ -1,8 +1,11 @@
-import { getSessionCookie } from "better-auth/cookies";
+import { auth } from "@mm-app/auth/server";
+import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 export default async function middleware(request: NextRequest) {
-  const session = getSessionCookie(request);
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
 
   if (request.nextUrl.pathname === "/") {
     if (session) {
@@ -26,14 +29,5 @@ export default async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     */
-    "/((?!api|_next/static|_next/image|favicon.ico|favicon|site.webmanifest|apple-touch-icon.png|android-chrome).*)",
-  ],
+  matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"],
 };
