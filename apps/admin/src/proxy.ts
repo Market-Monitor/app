@@ -19,10 +19,6 @@ export default async function proxy(request: NextRequest) {
     if (!session) {
       return NextResponse.redirect(new URL("/", process.env.BETTER_AUTH_URL!));
     }
-
-    if (request.nextUrl.pathname === "/dashboard/not-allowed") {
-      return NextResponse.next();
-    }
   }
 
   return NextResponse.next();
