@@ -14,13 +14,11 @@ import {
   DialogTitle,
 } from "@mm-app/ui/components/dialog";
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@mm-app/ui/components/form";
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@mm-app/ui/components/field";
 import { Input } from "@mm-app/ui/components/input";
 import {
   Select,
@@ -31,7 +29,7 @@ import {
 } from "@mm-app/ui/components/select";
 import Image from "next/image";
 import { startTransition, useEffect, useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { useDataManagement } from "../dt-provider";
@@ -155,69 +153,93 @@ export default function VeggieEdit() {
         </DialogHeader>
 
         <div>
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(handleSubmit)}
-              className="space-y-4"
-            >
-              <FormField
+          <form onSubmit={form.handleSubmit(handleSubmit)}>
+            <FieldGroup className="gap-4">
+              <Controller
                 control={form.control}
                 name="id"
-                render={({ field }) => (
-                  <FormItem className="space-y-1">
-                    <FormLabel>ID</FormLabel>
+                render={({ field, fieldState }) => (
+                  <Field
+                    data-invalid={fieldState.invalid}
+                    className="space-y-1"
+                  >
+                    <FieldLabel htmlFor={field.name}>ID</FieldLabel>
 
-                    <FormControl>
-                      <Input readOnly {...field} />
-                    </FormControl>
-                  </FormItem>
+                    <Input
+                      readOnly
+                      {...field}
+                      id={field.name}
+                      aria-invalid={fieldState.invalid}
+                    />
+                  </Field>
                 )}
               />
 
-              <FormField
+              <Controller
                 control={form.control}
                 name="name"
-                render={({ field }) => (
-                  <FormItem className="space-y-1">
-                    <FormLabel>Name</FormLabel>
+                render={({ field, fieldState }) => (
+                  <Field
+                    data-invalid={fieldState.invalid}
+                    className="space-y-1"
+                  >
+                    <FieldLabel htmlFor={field.name}>Name</FieldLabel>
 
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
+                    <Input
+                      {...field}
+                      id={field.name}
+                      aria-invalid={fieldState.invalid}
+                    />
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
                 )}
               />
 
-              <FormField
+              <Controller
                 control={form.control}
                 name="priceUnit"
-                render={({ field }) => (
-                  <FormItem className="space-y-1">
-                    <FormLabel>Price Unit</FormLabel>
+                render={({ field, fieldState }) => (
+                  <Field
+                    data-invalid={fieldState.invalid}
+                    className="space-y-1"
+                  >
+                    <FieldLabel htmlFor={field.name}>Price Unit</FieldLabel>
 
-                    <Select onValueChange={field.onChange} value={field.value}>
-                      <FormControl>
-                        <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Select price unit" />
-                        </SelectTrigger>
-                      </FormControl>
+                    <Select
+                      onValueChange={field.onChange}
+                      value={field.value}
+                      name={field.name}
+                    >
+                      <SelectTrigger
+                        id={field.name}
+                        aria-invalid={fieldState.invalid}
+                        className="w-full"
+                      >
+                        <SelectValue placeholder="Select price unit" />
+                      </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="kilo">Kilo</SelectItem>
                         <SelectItem value="bag">Bag</SelectItem>
                       </SelectContent>
                     </Select>
-                    <FormMessage />
-                  </FormItem>
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
                 )}
               />
 
-              <FormField
+              <Controller
                 control={form.control}
                 name="imageUrl"
-                render={({ field }) => (
-                  <FormItem className="space-y-1">
-                    <FormLabel>Image URL</FormLabel>
+                render={({ field, fieldState }) => (
+                  <Field
+                    data-invalid={fieldState.invalid}
+                    className="space-y-1"
+                  >
+                    <FieldLabel htmlFor={field.name}>Image URL</FieldLabel>
 
                     <div className="flex items-center min-h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 read-only:opacity-50 md:text-sm break-all">
                       {(field.value?.length ?? 0) > 0
@@ -248,7 +270,7 @@ export default function VeggieEdit() {
                         }}
                       />
                     </div>
-                  </FormItem>
+                  </Field>
                 )}
               />
 
@@ -261,8 +283,8 @@ export default function VeggieEdit() {
                   {isProcessing ? "Updating..." : "Update"}
                 </Button>
               </div>
-            </form>
-          </Form>
+            </FieldGroup>
+          </form>
         </div>
       </DialogContent>
     </Dialog>

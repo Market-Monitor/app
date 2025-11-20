@@ -8,18 +8,18 @@ catalog:
 
 catalogs:
   react:
-    "@types/react": ^19.2.5
-    "@types/react-dom": ^19.2.3
+    '@types/react': ^19.2.5
+    '@types/react-dom': ^19.2.3
     react: 19.2.0
     react-dom: 19.2.0
 
 ignoredBuiltDependencies:
-  - "@prisma/client"
-  - "@prisma/engines"
+  - '@prisma/client'
+  - '@prisma/engines'
   - better-sqlite3
   - prisma
 
 onlyBuiltDependencies:
-  - "@tailwindcss/oxide"
+  - '@tailwindcss/oxide'
   - core-js-pure
   - sharp

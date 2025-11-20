@@ -12,17 +12,15 @@ import {
   DialogTitle,
 } from "@mm-app/ui/components/dialog";
 import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@mm-app/ui/components/form";
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@mm-app/ui/components/field";
 import { Input } from "@mm-app/ui/components/input";
 import { useEffect, useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { useTradingCentersActions } from "./context";
@@ -122,91 +120,102 @@ export default function TradingCentersEditItem() {
         </DialogHeader>
 
         <div>
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(handleSubmit)}
-              className="space-y-4"
-            >
-              <FormField
+          <form onSubmit={form.handleSubmit(handleSubmit)}>
+            <FieldGroup>
+              <Controller
                 name="id"
                 control={form.control}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>ID</FormLabel>
-                    <FormControl>
-                      <Input {...field} readOnly />
-                    </FormControl>
-                  </FormItem>
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor={field.name}>ID</FieldLabel>
+                    <Input
+                      {...field}
+                      readOnly
+                      id={field.name}
+                      aria-invalid={fieldState.invalid}
+                    />
+                  </Field>
                 )}
               />
 
-              <FormField
+              <Controller
                 name="slug"
                 control={form.control}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Slug</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        readOnly
-                        placeholder="Slug for trading center, i.e trading-center"
-                      />
-                    </FormControl>
-                    <FormDescription className="text-xs">
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor={field.name}>Slug</FieldLabel>
+                    <Input
+                      {...field}
+                      readOnly
+                      placeholder="Slug for trading center, i.e trading-center"
+                      id={field.name}
+                      aria-invalid={fieldState.invalid}
+                    />
+                    <FieldDescription className="text-xs">
                       * Can't be changed for now since requires renaming
                       database names.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
+                    </FieldDescription>
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
                 )}
               />
 
-              <FormField
+              <Controller
                 name="name"
                 control={form.control}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Name</FormLabel>
-                    <FormControl>
-                      <Input {...field} placeholder="Name of trading center" />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor={field.name}>Name</FieldLabel>
+                    <Input
+                      {...field}
+                      placeholder="Name of trading center"
+                      id={field.name}
+                      aria-invalid={fieldState.invalid}
+                    />
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
                 )}
               />
 
-              <FormField
+              <Controller
                 name="longName"
                 control={form.control}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Long Name</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        placeholder="Long Name for trading center"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor={field.name}>Long Name</FieldLabel>
+                    <Input
+                      {...field}
+                      placeholder="Long Name for trading center"
+                      id={field.name}
+                      aria-invalid={fieldState.invalid}
+                    />
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
                 )}
               />
 
-              <FormField
+              <Controller
                 name="facebookPage"
                 control={form.control}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Facebook Page</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        placeholder="https://facebook.com/trading-center"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor={field.name}>Facebook Page</FieldLabel>
+                    <Input
+                      {...field}
+                      placeholder="https://facebook.com/trading-center"
+                      id={field.name}
+                      aria-invalid={fieldState.invalid}
+                    />
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
                 )}
               />
 
@@ -219,8 +228,8 @@ export default function TradingCentersEditItem() {
                   {isProcessing ? "Updating..." : "Update"}
                 </Button>
               </div>
-            </form>
-          </Form>
+            </FieldGroup>
+          </form>
         </div>
       </DialogContent>
     </Dialog>

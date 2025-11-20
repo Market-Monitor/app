@@ -13,16 +13,10 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@mm-app/ui/components/dialog";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@mm-app/ui/components/form";
+import { Field, FieldGroup, FieldLabel } from "@mm-app/ui/components/field";
 import { Input } from "@mm-app/ui/components/input";
 import { startTransition, useEffect, useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { useDataManagement } from "../dt-provider";
@@ -132,36 +126,44 @@ export default function VeggieCategoryEdit() {
         </DialogHeader>
 
         <div>
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(handleSubmit)}
-              className="space-y-4"
-            >
-              <FormField
+          <form onSubmit={form.handleSubmit(handleSubmit)}>
+            <FieldGroup className="gap-4">
+              <Controller
                 control={form.control}
                 name="id"
-                render={({ field }) => (
-                  <FormItem className="space-y-1">
-                    <FormLabel>ID</FormLabel>
+                render={({ field, fieldState }) => (
+                  <Field
+                    data-invalid={fieldState.invalid}
+                    className="space-y-1"
+                  >
+                    <FieldLabel htmlFor={field.name}>ID</FieldLabel>
 
-                    <FormControl>
-                      <Input readOnly {...field} />
-                    </FormControl>
-                  </FormItem>
+                    <Input
+                      readOnly
+                      {...field}
+                      id={field.name}
+                      aria-invalid={fieldState.invalid}
+                    />
+                  </Field>
                 )}
               />
 
-              <FormField
+              <Controller
                 control={form.control}
                 name="name"
-                render={({ field }) => (
-                  <FormItem className="space-y-1">
-                    <FormLabel>Name</FormLabel>
+                render={({ field, fieldState }) => (
+                  <Field
+                    data-invalid={fieldState.invalid}
+                    className="space-y-1"
+                  >
+                    <FieldLabel htmlFor={field.name}>Name</FieldLabel>
 
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                  </FormItem>
+                    <Input
+                      {...field}
+                      id={field.name}
+                      aria-invalid={fieldState.invalid}
+                    />
+                  </Field>
                 )}
               />
 
@@ -174,8 +176,8 @@ export default function VeggieCategoryEdit() {
                   {isProcessing ? "Updating..." : "Update"}
                 </Button>
               </div>
-            </form>
-          </Form>
+            </FieldGroup>
+          </form>
         </div>
       </DialogContent>
     </Dialog>

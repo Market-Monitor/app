@@ -11,18 +11,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@mm-app/ui/components/dialog";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@mm-app/ui/components/form";
+import { Field, FieldGroup, FieldLabel } from "@mm-app/ui/components/field";
 import { Input } from "@mm-app/ui/components/input";
 import { useEffect, useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { z } from "zod";
+import z from "zod";
 import { useDataManagement } from "../dt-provider";
 import { useHistoryDataActions } from "./actions-provider";
 
@@ -139,32 +133,29 @@ export default function HistoryDelete() {
         ) : null}
 
         <div>
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(handleSubmit)}
-              className="space-y-4"
-            >
+          <form onSubmit={form.handleSubmit(handleSubmit)}>
+            <FieldGroup className="gap-4">
               <input type="hidden" {...form.register("_id")} />
 
-              <FormField
+              <Controller
                 control={form.control}
                 name="id"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Vegetable ID</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        readOnly
-                        placeholder="This is the ID of the vegetable"
-                      />
-                    </FormControl>
-                  </FormItem>
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor={field.name}>Vegetable ID</FieldLabel>
+                    <Input
+                      {...field}
+                      id={field.name}
+                      aria-invalid={fieldState.invalid}
+                      readOnly
+                      placeholder="This is the ID of the vegetable"
+                    />
+                  </Field>
                 )}
               />
 
               <div className="flex items-center justify-end space-x-2">
-                <DialogClose disabled={isProcessing} asChild>
+                <DialogClose type="button" disabled={isProcessing} asChild>
                   <Button variant="outline">Cancel</Button>
                 </DialogClose>
 
@@ -176,8 +167,8 @@ export default function HistoryDelete() {
                   {isProcessing ? "Deleting..." : "Delete"}
                 </Button>
               </div>
-            </form>
-          </Form>
+            </FieldGroup>
+          </form>
         </div>
       </DialogContent>
     </Dialog>

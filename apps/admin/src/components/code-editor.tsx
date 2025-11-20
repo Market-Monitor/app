@@ -1,12 +1,11 @@
+import { json } from "@codemirror/lang-json";
 import { cn } from "@mm-app/ui/lib/utils";
-import { LanguageName, loadLanguage } from "@uiw/codemirror-extensions-langs";
 import { atomone } from "@uiw/codemirror-themes-all";
 import CodeMirror from "@uiw/react-codemirror";
 
-export default function CodeEditor(props: {
+export default function JsonCodeEditor(props: {
   value: string;
   onChange: (value: string) => void;
-  lang: LanguageName;
   height?: string;
   className?: string;
 }) {
@@ -14,11 +13,10 @@ export default function CodeEditor(props: {
     <CodeMirror
       value={props.value}
       onChange={props.onChange}
-      lang={props.lang}
       height={props.height || "300px"}
       theme={atomone}
       className={cn("rounded-xl", props.className)}
-      extensions={[loadLanguage(props.lang)!]}
+      extensions={[json()]}
       basicSetup={{
         foldGutter: false,
         dropCursor: false,
