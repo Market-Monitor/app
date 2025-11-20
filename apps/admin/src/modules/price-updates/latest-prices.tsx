@@ -1,6 +1,6 @@
 "use client";
 
-import CodeEditor from "@/components/code-editor";
+import JsonCodeEditor from "@/components/code-editor";
 import { updateLatestPrices } from "@/lib/server-actions/updates/latest-prices";
 import { TradingCenterDoc } from "@/types/dt";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,13 +14,11 @@ import {
 } from "@mm-app/ui/components/card";
 import { Checkbox } from "@mm-app/ui/components/checkbox";
 import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@mm-app/ui/components/form";
+  Field,
+  FieldDescription,
+  FieldGroup,
+  FieldLabel,
+} from "@mm-app/ui/components/field";
 import {
   Select,
   SelectContent,
@@ -30,7 +28,7 @@ import {
 } from "@mm-app/ui/components/select";
 import { WithId } from "mongodb";
 import { useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
@@ -105,39 +103,46 @@ export default function PriceUpdatesLatest(props: {
       </CardHeader>
 
       <CardContent>
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(submitHandler)}
-            className="space-y-8"
-          >
-            <FormField
+        <form onSubmit={form.handleSubmit(submitHandler)} className="space-y-8">
+          <FieldGroup className="gap-8">
+            <Controller
               control={form.control}
               name="value"
-              render={({ field }) => (
-                <FormItem>
-                  <CodeEditor
-                    lang="json"
+              render={({ field, fieldState }) => (
+                <Field aria-invalid={fieldState.invalid}>
+                  <JsonCodeEditor
                     value={field.value}
                     onChange={field.onChange}
+                    aria-invalid={fieldState.invalid}
                     height="700px"
                   />
-                </FormItem>
+                </Field>
               )}
             />
 
             <div className="flex flex-row items-center justify-between">
-              <div className="flex flex-row items-end space-x-4">
-                <FormField
+              <div className="inline-flex flex-row items-end space-x-4 w-full">
+                <Controller
                   control={form.control}
                   name="tradingCenter"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Trading Center</FormLabel>
+                  render={({ field, fieldState }) => (
+                    <Field
+                      aria-invalid={fieldState.invalid}
+                      className="w-[300px]"
+                    >
+                      <FieldLabel htmlFor={field.name}>
+                        Trading Center
+                      </FieldLabel>
                       <Select
                         onValueChange={field.onChange}
                         value={field.value}
+                        name={field.name}
                       >
-                        <SelectTrigger className="w-[300px]">
+                        <SelectTrigger
+                          id={field.name}
+                          aria-invalid={fieldState.invalid}
+                          className="w-[300px]"
+                        >
                           <SelectValue placeholder="Select Trading Center" />
                         </SelectTrigger>
                         <SelectContent>
@@ -151,30 +156,36 @@ export default function PriceUpdatesLatest(props: {
                           ))}
                         </SelectContent>
                       </Select>
-                    </FormItem>
+                    </Field>
                   )}
                 />
-                <FormField
+                <Controller
                   name="forceInsert"
                   control={form.control}
-                  render={({ field }) => (
-                    <FormItem className="flex items-start">
-                      <FormControl>
-                        <Checkbox
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                      </FormControl>
-                      <div>
-                        <FormLabel>Force Insert</FormLabel>
-                        <FormDescription className="text-xs">
+                  render={({ field, fieldState }) => (
+                    <Field
+                      aria-invalid={fieldState.invalid}
+                      orientation={"horizontal"}
+                      className="items-start w-full"
+                    >
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                        aria-invalid={fieldState.invalid}
+                        id={field.name}
+                      />
+                      <div className="w-full">
+                        <FieldLabel htmlFor={field.name}>
+                          Force Insert
+                        </FieldLabel>
+                        <FieldDescription className="text-xs w-full">
                           If checked, it will ignore existing data date checks
                           and forcefully adds the data.
                           <br />
                           Only check if you know what you are doing.
-                        </FormDescription>
+                        </FieldDescription>
                       </div>
-                    </FormItem>
+                    </Field>
                   )}
                 />
               </div>
@@ -189,8 +200,8 @@ export default function PriceUpdatesLatest(props: {
                 </Button>
               </div>
             </div>
-          </form>
-        </Form>
+          </FieldGroup>
+        </form>
       </CardContent>
     </Card>
   );

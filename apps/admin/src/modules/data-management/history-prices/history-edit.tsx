@@ -13,16 +13,10 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@mm-app/ui/components/dialog";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@mm-app/ui/components/form";
+import { Field, FieldGroup, FieldLabel } from "@mm-app/ui/components/field";
 import { Input } from "@mm-app/ui/components/input";
 import { useEffect, useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { useDataManagement } from "../dt-provider";
@@ -157,100 +151,127 @@ export default function HistoryEdit() {
         </DialogHeader>
 
         <div>
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(handleSubmit)}
-              className="space-y-4"
-            >
-              <FormField
+          <form onSubmit={form.handleSubmit(handleSubmit)}>
+            <FieldGroup className="gap-4">
+              <Controller
                 control={form.control}
                 name="parentId"
-                render={({ field }) => (
-                  <FormItem className="space-y-1">
-                    <FormLabel>Parent ID</FormLabel>
+                render={({ field, fieldState }) => (
+                  <Field
+                    data-invalid={fieldState.invalid}
+                    className="space-y-1"
+                  >
+                    <FieldLabel htmlFor={field.name}>Parent ID</FieldLabel>
 
-                    <FormControl>
-                      <Input readOnly {...field} />
-                    </FormControl>
-                  </FormItem>
+                    <Input
+                      readOnly
+                      {...field}
+                      aria-invalid={fieldState.invalid}
+                      id={field.name}
+                    />
+                  </Field>
                 )}
               />
 
-              <FormField
+              <Controller
                 control={form.control}
                 name="parentName"
-                render={({ field }) => (
-                  <FormItem className="space-y-1">
-                    <FormLabel>Parent</FormLabel>
+                render={({ field, fieldState }) => (
+                  <Field
+                    data-invalid={fieldState.invalid}
+                    className="space-y-1"
+                  >
+                    <FieldLabel htmlFor={field.name}>Parent</FieldLabel>
 
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                  </FormItem>
+                    <Input
+                      {...field}
+                      aria-invalid={fieldState.invalid}
+                      id={field.name}
+                    />
+                  </Field>
                 )}
               />
 
-              <FormField
+              <Controller
                 control={form.control}
                 name="id"
-                render={({ field }) => (
-                  <FormItem className="space-y-1">
-                    <FormLabel>ID</FormLabel>
+                render={({ field, fieldState }) => (
+                  <Field
+                    data-invalid={fieldState.invalid}
+                    className="space-y-1"
+                  >
+                    <FieldLabel htmlFor={field.name}>ID</FieldLabel>
 
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                  </FormItem>
+                    <Input
+                      {...field}
+                      aria-invalid={fieldState.invalid}
+                      id={field.name}
+                    />
+                  </Field>
                 )}
               />
 
-              <FormField
+              <Controller
                 control={form.control}
                 name="name"
-                render={({ field }) => (
-                  <FormItem className="space-y-1">
-                    <FormLabel>Name</FormLabel>
+                render={({ field, fieldState }) => (
+                  <Field
+                    data-invalid={fieldState.invalid}
+                    className="space-y-1"
+                  >
+                    <FieldLabel htmlFor={field.name}>Name</FieldLabel>
 
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                  </FormItem>
+                    <Input
+                      {...field}
+                      aria-invalid={fieldState.invalid}
+                      id={field.name}
+                    />
+                  </Field>
                 )}
               />
 
-              <FormField
+              <Controller
                 control={form.control}
                 name="prices"
-                render={({ field }) => (
-                  <FormItem className="space-y-1">
-                    <FormLabel>Prices</FormLabel>
+                render={({ field, fieldState }) => (
+                  <Field
+                    data-invalid={fieldState.invalid}
+                    className="space-y-1"
+                  >
+                    <FieldLabel htmlFor={field.name}>Prices</FieldLabel>
 
-                    <FormControl>
-                      <Input
-                        {...field}
-                        placeholder="Enter prices, use comma to separate"
-                      />
-                    </FormControl>
-                  </FormItem>
+                    <Input
+                      {...field}
+                      aria-invalid={fieldState.invalid}
+                      id={field.name}
+                      placeholder="Enter prices, use comma to separate"
+                    />
+                  </Field>
                 )}
               />
 
-              <FormField
+              <Controller
                 control={form.control}
                 name="date"
-                render={({ field }) => (
-                  <FormItem className="space-y-1">
-                    <FormLabel>Date</FormLabel>
+                render={({ field, fieldState }) => (
+                  <Field
+                    data-invalid={fieldState.invalid}
+                    className="space-y-1"
+                  >
+                    <FieldLabel htmlFor={field.name}>Date</FieldLabel>
 
-                    <FormControl>
-                      <Input readOnly {...field} />
-                    </FormControl>
-                  </FormItem>
+                    <Input
+                      readOnly
+                      {...field}
+                      aria-invalid={fieldState.invalid}
+                      id={field.name}
+                    />
+                  </Field>
                 )}
               />
 
               <div className="flex items-center space-x-2">
-                <DialogClose disabled={isProcessing} asChild>
+                <DialogClose type="button" disabled={isProcessing} asChild>
                   <Button variant="outline">Cancel</Button>
                 </DialogClose>
 
@@ -258,8 +279,8 @@ export default function HistoryEdit() {
                   {isProcessing ? "Updating..." : "Update"}
                 </Button>
               </div>
-            </form>
-          </Form>
+            </FieldGroup>
+          </form>
         </div>
       </DialogContent>
     </Dialog>

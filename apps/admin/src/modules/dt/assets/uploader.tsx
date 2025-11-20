@@ -6,13 +6,11 @@ import { AssetDoc } from "@/types/dt";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@mm-app/ui/components/button";
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@mm-app/ui/components/form";
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@mm-app/ui/components/field";
 import { Input } from "@mm-app/ui/components/input";
 import {
   Tooltip,
@@ -22,7 +20,7 @@ import {
 import { cn } from "@mm-app/ui/lib/utils";
 import { CircleHelpIcon, UploadCloudIcon } from "lucide-react";
 import { useEffect, useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { useLocalStorage } from "react-use";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -129,39 +127,41 @@ const AssetsUploader = (props: { className?: string }) => {
 
   return (
     <div className={cn("w-5/6 mx-auto space-y-6", props.className)}>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <FormField
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <FieldGroup className="gap-4">
+          <Controller
             control={form.control}
             name="images"
             disabled={
               isUploading ||
               (typeof isDoneUploading === "boolean" ? isDoneUploading : false)
             }
-            render={({ field }) => (
+            render={({ field, fieldState }) => (
               <div className="space-y-6">
-                <FormItem className="w-full">
-                  <FormControl>
-                    <FileUploader
-                      value={field.value}
-                      onValueChange={field.onChange}
-                      maxFileCount={Infinity}
-                      progresses={progresses}
-                      disabled={isUploading}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
+                <Field aria-invalid={fieldState.invalid} className="w-full">
+                  <FileUploader
+                    value={field.value}
+                    onValueChange={field.onChange}
+                    maxFileCount={Infinity}
+                    progresses={progresses}
+                    disabled={isUploading}
+                  />
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
               </div>
             )}
           />
-
-          <FormField
+          <Controller
             control={form.control}
             name="source"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-muted-foreground space-x-2 inline-flex items-center">
+            render={({ field, fieldState }) => (
+              <Field aria-invalid={fieldState.invalid}>
+                <FieldLabel
+                  htmlFor={field.name}
+                  className="text-muted-foreground space-x-2 inline-flex items-center"
+                >
                   <span>Image Source (Optional)</span>
 
                   <Tooltip>
@@ -175,18 +175,17 @@ const AssetsUploader = (props: { className?: string }) => {
                       </p>
                     </TooltipContent>
                   </Tooltip>
-                </FormLabel>
+                </FieldLabel>
 
-                <FormControl>
-                  <Input
-                    {...field}
-                    placeholder="Image source if available..."
-                  />
-                </FormControl>
-              </FormItem>
+                <Input
+                  {...field}
+                  placeholder="Image source if available..."
+                  id={field.name}
+                  aria-invalid={fieldState.invalid}
+                />
+              </Field>
             )}
           />
-
           <div>
             <Button
               type="submit"
@@ -199,14 +198,13 @@ const AssetsUploader = (props: { className?: string }) => {
               <span>{isLoading ? "Uploading..." : "Upload"}</span>
             </Button>
           </div>
-
           <div>
             {successfulUploads.length > 0 ? (
               <UploadedFilesCard uploadedFiles={successfulUploads} />
             ) : null}
           </div>
-        </form>
-      </Form>
+        </FieldGroup>
+      </form>
     </div>
   );
 };

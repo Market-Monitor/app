@@ -1,6 +1,6 @@
 "use client";
 
-import CodeEditor from "@/components/code-editor";
+import JsonCodeEditor from "@/components/code-editor";
 import { updateVegetableCategories } from "@/lib/server-actions/updates/vegetable-categories";
 import { TradingCenterDoc } from "@/types/dt";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,12 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@mm-app/ui/components/card";
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@mm-app/ui/components/form";
+import { Field, FieldGroup, FieldLabel } from "@mm-app/ui/components/field";
 import {
   Select,
   SelectContent,
@@ -27,7 +22,7 @@ import {
 } from "@mm-app/ui/components/select";
 import { WithId } from "mongodb";
 import { useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
@@ -92,35 +87,43 @@ export default function PriceUpdatesVegetableCategories(props: {
       </CardHeader>
 
       <CardContent>
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(submitHandler)}
-            className="space-y-8"
-          >
-            <FormField
+        <form onSubmit={form.handleSubmit(submitHandler)}>
+          <FieldGroup className="gap-8">
+            <Controller
               control={form.control}
               name="value"
-              render={({ field }) => (
-                <FormItem>
-                  <CodeEditor
-                    lang="json"
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <JsonCodeEditor
                     value={field.value}
                     onChange={field.onChange}
                     height="700px"
+                    aria-invalid={fieldState.invalid}
                   />
-                </FormItem>
+                </Field>
               )}
             />
 
             <div className="flex flex-row items-center justify-between">
-              <FormField
+              <Controller
                 control={form.control}
                 name="tradingCenter"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Trading Center</FormLabel>
-                    <Select onValueChange={field.onChange} value={field.value}>
-                      <SelectTrigger className="w-[300px]">
+                render={({ field, fieldState }) => (
+                  <Field
+                    data-invalid={fieldState.invalid}
+                    className="w-[300px]"
+                  >
+                    <FieldLabel htmlFor={field.name}>Trading Center</FieldLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      value={field.value}
+                      name={field.name}
+                    >
+                      <SelectTrigger
+                        className="w-[300px]"
+                        id={field.name}
+                        aria-invalid={fieldState.invalid}
+                      >
                         <SelectValue placeholder="Select Trading Center" />
                       </SelectTrigger>
                       <SelectContent>
@@ -134,7 +137,7 @@ export default function PriceUpdatesVegetableCategories(props: {
                         ))}
                       </SelectContent>
                     </Select>
-                  </FormItem>
+                  </Field>
                 )}
               />
 
@@ -144,8 +147,8 @@ export default function PriceUpdatesVegetableCategories(props: {
                 </Button>
               </div>
             </div>
-          </form>
-        </Form>
+          </FieldGroup>
+        </form>
       </CardContent>
     </Card>
   );
