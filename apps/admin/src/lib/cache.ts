@@ -6,14 +6,11 @@ const tags = ["get-trading-centers", "get-assets", "get-app-stats"];
 
 export const clearCacheOnly = async () => {
   for (const item of tags) {
-    revalidateTag(item);
+    revalidateTag(item, "max");
   }
 };
 
 export const clearCacheRedirect = async () => {
-  for (const item of tags) {
-    revalidateTag(item);
-  }
-
+  revalidatePath("/dashboard");
   revalidatePath("/");
 };
