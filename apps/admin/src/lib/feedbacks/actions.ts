@@ -11,12 +11,12 @@ export const refreshQueryFeedbacks = async () => {
   });
 
   if (!session) {
-    revalidateTag("get-assets");
-    revalidateTag("get-veggies");
+    revalidateTag("get-assets", "max");
+    revalidateTag("get-veggies", "max");
     return redirect("/");
   }
 
-  revalidateTag("get-mobile-app-feedbacks");
+  revalidateTag("get-mobile-app-feedbacks", "max");
 
   return true;
 };

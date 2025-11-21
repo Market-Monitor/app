@@ -80,7 +80,7 @@ export const updateTradingCenter = async (
       throw new Error("Failed to update trading center");
     }
 
-    revalidateTag("get-trading-centers");
+    revalidateTag("get-trading-centers", "max");
 
     return {
       success: true,

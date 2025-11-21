@@ -21,8 +21,8 @@ export const generatePresignedUrl = async (fileName: string) => {
   });
 
   if (!session) {
-    revalidateTag("get-assets");
-    revalidateTag("get-veggies");
+    revalidateTag("get-assets", "max");
+    revalidateTag("get-veggies", "max");
     return redirect("/");
   }
 
@@ -71,8 +71,8 @@ export const removeFilesFromS3 = async (
   });
 
   if (!session) {
-    revalidateTag("get-assets");
-    revalidateTag("get-veggies");
+    revalidateTag("get-assets", "max");
+    revalidateTag("get-veggies", "max");
     return redirect("/");
   }
   const fileKeys = fileUrls.map((x) =>

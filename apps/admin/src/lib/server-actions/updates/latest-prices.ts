@@ -238,8 +238,8 @@ export const updateLatestPrices = async (
       }
     }
 
-    revalidateTag("get-app-stats");
-    revalidateTag("get-trading-centers");
+    revalidateTag("get-app-stats", "max");
+    revalidateTag("get-trading-centers", "max");
 
     return {
       success: true,

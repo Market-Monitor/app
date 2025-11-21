@@ -39,7 +39,7 @@ export const saveAssetUploadToDB = async (
     }
 
     // Invalidate caches
-    revalidateTag("get-assets");
+    revalidateTag("get-assets", "max");
 
     return {
       success: true,
