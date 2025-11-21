@@ -13,6 +13,11 @@
         "TRUSTED_ORIGINS"
       ]
     },
+    "ci:build": {
+      "dependsOn": ["^ci:build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": [".next/**", "!.next/cache/**"]
+    },
     "lint": {
       "dependsOn": ["^lint"]
     },
